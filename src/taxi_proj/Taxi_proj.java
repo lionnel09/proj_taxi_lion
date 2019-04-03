@@ -77,7 +77,7 @@ public class Taxi_proj {
         } while (ch != 8);
         DBConnection.closeConnection();
     }
-// Encodage d'un nouvea Taxi dans la base  de données
+// Encodage d'un nouvea Taxi dans la base  de données /////
 
     public void nouveau() {
         System.out.println("immatriculation : ");
