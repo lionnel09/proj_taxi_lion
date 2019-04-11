@@ -8,6 +8,7 @@ package taxi.DAO;
 import classe.metier.Adresse;
 import connect.DBConnection;
 import java.sql.Connection;
+import java.sql.SQLException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -62,8 +63,12 @@ public class AdresseDAOTest {
         assertEquals("code postal",expResult.getCp(),result.getCp());
         assertEquals("localité",expResult.getLocalite(), result.getLocalite());
         assertEquals("rue",expResult.getRue(), result.getRue());
-        assertEquals("id différent",expResult.getIdadr(), result.getIdadr());
-        // TODO review the generated test code and remove the default call to fail.
+        assertNotEquals("id différent",expResult.getIdadr(), result.getIdadr());
+         try{
+            result=instance.read(0);
+            fail("exception d'id inconnu non générée");
+        }catch(SQLException e){}
+       instance.delete(result);
        
     }
 
@@ -73,13 +78,31 @@ public class AdresseDAOTest {
     @Test
     public void testCreate() throws Exception {
         System.out.println("create");
-        Adresse obj = null;
+        Adresse obj=new Adresse(0,1000,"testloc","testrue","testnum");
         AdresseDAO instance = new AdresseDAO();
-        Adresse expResult = null;
+        instance.setConnection(dbConnect);
+        Adresse expResult = new Adresse(0,1000,"testloc","testrue","testnum");
         Adresse result = instance.create(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("code postal",expResult.getCp(),result.getCp());
+        assertEquals("localité",expResult.getLocalite(), result.getLocalite());
+        assertEquals("rue",expResult.getRue(), result.getRue());
+        assertNotEquals("id différent",expResult.getIdadr(), result.getIdadr());
+        int idadr=result.getIdadr();
+        obj=new Adresse(0,1000,"testloc","testrue","testnum");
+        try{
+            Adresse result2 = instance.create(obj);
+            fail("exception de doublon non déclenchée");
+            instance.delete(result2);
+        }
+        catch(SQLException e){}
+        instance.delete(result);
+        obj=new Adresse(0,1000,"testloc","testrue","testnum");
+        try{
+            Adresse result3 = instance.create(obj);
+            fail("exception de code postal non déclenchée");
+            instance.delete(result3);
+        }
+        catch(SQLException e){}
     }
 
     /**
@@ -88,8 +111,14 @@ public class AdresseDAOTest {
     @Test
     public void testUpdate() throws Exception {
         System.out.println("update");
-        Adresse obj = null;
+        Adresse obj = new Adresse(0,1000,"testloc","testrue","testnum");
         AdresseDAO instance = new AdresseDAO();
+        instance.setConnection(dbConnect);
+        obj=instance.create(obj);
+        obj.setLocalite("testloc2");
+        obj.setCp(1001);
+        obj.setNum("testnum2");
+        obj.setRue("");
         Adresse expResult = null;
         Adresse result = instance.update(obj);
         assertEquals(expResult, result);
@@ -103,11 +132,18 @@ public class AdresseDAOTest {
     @Test
     public void testDelete() throws Exception {
         System.out.println("delete");
-        Adresse obj = null;
+        Adresse obj = new Adresse(0,1000,"testloc","testrue","testnum");
         AdresseDAO instance = new AdresseDAO();
+        instance.setConnection(dbConnect);
+        obj=instance.create(obj);
         instance.delete(obj);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            instance.read(obj.getIdadr());
+            fail("exception de record introuvable non générée");
+            
+        }
+        catch(SQLException e){}
+        
     }
     
 }
