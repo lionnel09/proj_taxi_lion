@@ -63,7 +63,7 @@ public class AdresseDAOTest {
         assertEquals("code postal",expResult.getCp(),result.getCp());
         assertEquals("localité",expResult.getLocalite(), result.getLocalite());
         assertEquals("rue",expResult.getRue(), result.getRue());
-        assertNotEquals("id différent",expResult.getIdadr(), result.getIdadr());
+        assertEquals("id différent",expResult.getIdadr(), result.getIdadr());
          try{
             result=instance.read(0);
             fail("exception d'id inconnu non générée");
@@ -86,7 +86,7 @@ public class AdresseDAOTest {
         assertEquals("code postal",expResult.getCp(),result.getCp());
         assertEquals("localité",expResult.getLocalite(), result.getLocalite());
         assertEquals("rue",expResult.getRue(), result.getRue());
-        assertNotEquals("id différent",expResult.getIdadr(), result.getIdadr());
+        assertEquals("id différent",expResult.getIdadr(), result.getIdadr());
         int idadr=result.getIdadr();
         obj=new Adresse(0,1000,"testloc","testrue","testnum");
         try{

@@ -15,6 +15,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import java.time.LocalDateTime;
 import static org.junit.Assert.*;
 import static taxi.DAO.AdresseDAOTest.dbConnect;
 
@@ -59,11 +60,22 @@ public class TaxiDAOTest {
         System.out.println("read");
         int idtaxi = 0;
         TaxiDAO instance = new TaxiDAO();
-        Voiture expResult = null;
+        instance.setConnection(dbconnect);
+        Voiture obj =new Voiture(0,"testimma","testcarbu",23.3,"testdesc");
+        Voiture expResult = instance.create(obj);
+        idtaxi=expResult.getIdtaxi();
         Voiture result = instance.read(idtaxi);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("Immatriculation différents", expResult.getImma(), result.getImma());
+        assertEquals("litre de carburant pas identique", expResult.getCarbu(), result.getCarbu());
+        assertEquals("différents prix", expResult.getPkm(), result.getPkm());
+        assertEquals("Description différentes", expResult.getDesc(), result.getDesc());
+        assertEquals("id non généré(différents)", expResult.getIdtaxi(), result.getIdtaxi());
+        try {
+            result = instance.read(0);
+            fail("exception d'id inconnu non générée");
+        } catch (SQLException e) {
+        }
+        instance.delete(expResult);
     }
 
     /**
@@ -133,26 +145,30 @@ public class TaxiDAOTest {
     @Test
     public void testDelete() throws Exception {
         System.out.println("delete");
-        Voiture obj = null;
+        Voiture obj = new Voiture(0,"testimma","testcarbu",23.3,"testdesc");
         TaxiDAO instance = new TaxiDAO();
+        instance.setConnection(dbconnect);
         instance.delete(obj);
-        // TODO review the generated test code and remove the default call to fail.
+        
         fail("The test case is a prototype.");
     }
 
     /**
      * Test of rechimma method, of class TaxiDAO.
+     * @throws java.lang.Exception
      */
     @Test
     public void testRechimma() throws Exception {
         System.out.println("rechimma");
-        String imma = "";
+        Voiture obj= new Voiture(0,"testimma","testcarbu",23.3,"testdesc");
+        
+        String imma = "testimma";
         TaxiDAO instance = new TaxiDAO();
-        Voiture expResult = null;
+        instance.setConnection(dbconnect);
+        obj=instance.create(obj);
         Voiture result = instance.rechimma(imma);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if(result.indexOf(obj)<0) fail("record introuvale"+obj);
+        
     }
 
     /**
