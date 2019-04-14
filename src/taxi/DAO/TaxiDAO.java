@@ -164,9 +164,9 @@ public class TaxiDAO extends DAO<Voiture> {
      */
     public List<Voiture> rechdesc(String desc) throws SQLException {
         List<Voiture> vtdesc = new ArrayList<>();
-        String req = "select * from api_proj_taxi  where description like '%?%' ";
+        String req = "select * from api_proj_taxi  where description like ? ";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
-            pstm.setString(1, desc);
+            pstm.setString(1, "%" + desc + "%");
             boolean trouve = false;
             try (ResultSet rs = pstm.executeQuery()) {
 

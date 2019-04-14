@@ -8,6 +8,7 @@ package taxi.DAO;
 import classe.metier.Voiture;
 import connect.DBConnection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -22,10 +23,10 @@ import static taxi.DAO.AdresseDAOTest.dbConnect;
  * @author Hp
  */
 public class TaxiDAOTest {
-    
+
     public TaxiDAOTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
         dbConnect = DBConnection.getConnection();
@@ -34,16 +35,16 @@ public class TaxiDAOTest {
             System.exit(1);
         }
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
         DBConnection.closeConnection();
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -57,20 +58,21 @@ public class TaxiDAOTest {
         int idtaxi = 0;
         TaxiDAO instance = new TaxiDAO();
         instance.setConnection(dbConnect);
-        Voiture obj = new Voiture(0,"testimma1","testcarbu",23.0,"testdsc");
-        Voiture expResult=instance.create(obj);
-        idtaxi=expResult.getIdtaxi();
+        Voiture obj = new Voiture(0, "testimma1", "testcarbu", 23.0, "testdsc");
+        Voiture expResult = instance.create(obj);
+        idtaxi = expResult.getIdtaxi();
         Voiture result = instance.read(idtaxi);
-        assertEquals("carburant différent",expResult.getCarbu(), result.getCarbu());
-        assertEquals("immatriculation ",expResult.getImma(), result.getImma());
-        assertEquals("prix au km",expResult.getPkm(), result.getPkm());
-        assertEquals("description",expResult.getDesc(), result.getDesc());
-        try{
-            result=instance.read(0);
+        assertEquals("carburant différent", expResult.getCarbu(), result.getCarbu());
+        assertEquals("immatriculation ", expResult.getImma(), result.getImma());
+        assertEquals("prix au km", expResult.getPkm(), result.getPkm());
+        assertEquals("description", expResult.getDesc(), result.getDesc());
+        try {
+            result = instance.read(0);
             fail("exception d'id inconnu non généré");
-        }catch(SQLException e){}
+        } catch (SQLException e) {
+        }
         instance.delete(result);
-        
+
     }
 
     /**
@@ -79,13 +81,18 @@ public class TaxiDAOTest {
     @Test
     public void testCreate() throws Exception {
         System.out.println("create");
-        Voiture obj = null;
+        Voiture obj = new Voiture(0, "testimma7", "testcarbu", 23.0, "testdsc");
         TaxiDAO instance = new TaxiDAO();
-        Voiture expResult = null;
+        instance.setConnection(dbConnect);
         Voiture result = instance.create(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
+        Voiture expResult = obj;
+
+        assertEquals("différence imma", expResult.getImma(), result.getImma());
+        assertEquals("différence carburant", expResult.getCarbu(), result.getCarbu());
+        assertEquals("différence prix", expResult.getPkm(), result.getPkm());
+        assertEquals("différence description ", expResult.getDesc(), result.getDesc());
+        instance.delete(obj);
     }
 
     /**
@@ -94,13 +101,22 @@ public class TaxiDAOTest {
     @Test
     public void testUpdate() throws Exception {
         System.out.println("update");
-        Voiture obj = null;
+        Voiture obj = new Voiture(0, "testimma6", "testcarbu", 23.0, "testdsc");
         TaxiDAO instance = new TaxiDAO();
-        Voiture expResult = null;
+        instance.setConnection(dbConnect);
+        obj = instance.create(obj);
+        obj.setImma("TestImma");
+        obj.setCarbu("testCarbu");
+        obj.setPkm(25.0);
+        obj.setDesc("TestDesc");
+
         Voiture result = instance.update(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Voiture expResult = obj;
+        assertEquals("différence imma", expResult.getImma(), result.getImma());
+        assertEquals("différence carburant", expResult.getCarbu(), result.getCarbu());
+        assertEquals("différence prix", expResult.getPkm(), result.getPkm());
+        assertEquals("différence description ", expResult.getDesc(), result.getDesc());
+        instance.delete(obj);
     }
 
     /**
@@ -109,15 +125,16 @@ public class TaxiDAOTest {
     @Test
     public void testDelete() throws Exception {
         System.out.println("delete");
-        Voiture obj = new Voiture(0,"testimma2","testcarbu",23.0,"testdsc");
+        Voiture obj = new Voiture(0, "testimma2", "testcarbu", 23.0, "testdsc");
         TaxiDAO instance = new TaxiDAO();
         instance.setConnection(dbConnect);
-        obj=instance.create(obj);
+        obj = instance.create(obj);
         instance.delete(obj);
-        try{
+        try {
             instance.read(obj.getIdtaxi());
             fail("exception de record introuvable non générée");
-        }catch(SQLException e){}
+        } catch (SQLException e) {
+        }
     }
 
     /**
@@ -128,17 +145,17 @@ public class TaxiDAOTest {
         System.out.println("rechimma");
         String imma = "testimma3";
         TaxiDAO instance = new TaxiDAO();
-        Voiture obj = new Voiture(0,"testimma3","testcarbu",23.0,"testdsc");
-        
+        Voiture obj = new Voiture(0, "testimma3", "testcarbu", 23.0, "testdsc");
+
         instance.setConnection(dbConnect);
-        Voiture expResult =instance.create(obj);
+        Voiture expResult = instance.create(obj);
         Voiture result = instance.rechimma(imma);
-        if(expResult==null){
+        if (expResult == null) {
             fail("record introuvable");
         }
-        assertEquals("immatriculation",expResult.getImma(), result.getImma());
+        assertEquals("immatriculation", expResult.getImma(), result.getImma());
         instance.delete(obj);
-        
+
     }
 
     /**
@@ -150,33 +167,23 @@ public class TaxiDAOTest {
         String desc = "testdsc";
         TaxiDAO instance = new TaxiDAO();
         instance.setConnection(dbConnect);
-        Voiture obj = new Voiture(1000,"testimma4","testcarbu",23.0,"testdsc");
-        Voiture obj1= new Voiture(0,"testimma5","testcarbu",23.0,"testdsc");
-        obj=instance.create(obj);
-        obj1=instance.create(obj1);
-        
-        List<Voiture> result=instance.rechdesc(desc);
-        if(result.indexOf(obj)<0) fail("record introuvable "+obj);
-        if(result.indexOf(obj1)<0) fail("record introuvable "+obj1);
+        Voiture obj = new Voiture(1000, "testimma4", "testcarbu", 23.0, "testdsc");
+        Voiture obj1 = new Voiture(0, "testimma5", "testcarbu", 23.0, "testdsc");
+        obj = instance.create(obj);
+        obj1 = instance.create(obj1);
+        List<Voiture> result = instance.rechdesc(desc);
+        List<Voiture> expResult = new ArrayList();
+        expResult.add(obj);
+        expResult.add(obj1);
+        for (int i = 0; i < result.size(); i++) {
+            assertEquals("différence imma", expResult.get(i).getImma(), result.get(i).getImma());
+            assertEquals("différence carburant", expResult.get(i).getCarbu(), result.get(i).getCarbu());
+            assertEquals("différence prix", expResult.get(i).getPkm(), result.get(i).getPkm());
+            assertEquals("différence description ", expResult.get(i).getDesc(), result.get(i).getDesc());
+        }
         instance.delete(obj);
         instance.delete(obj1);
-        
-        
+
     }
 
-    /**
-     * Test of aff method, of class TaxiDAO.
-     */
-    @Test
-    public void testAff() throws Exception {
-        System.out.println("aff");
-        TaxiDAO instance = new TaxiDAO();
-        
-        List<Voiture> expResult = null;
-        List<Voiture> result = instance.aff();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
