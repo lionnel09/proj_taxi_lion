@@ -6,16 +6,15 @@
 package taxi.DAO;
 
 import classe.metier.Voiture;
-import connect.DBConnection;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
+import connect.DBConnection;
+import connect.DBConnection;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import java.time.LocalDateTime;
 import static org.junit.Assert.*;
 import static taxi.DAO.AdresseDAOTest.dbConnect;
 
@@ -107,7 +106,7 @@ public class TaxiDAOTest {
           obj=new Voiture(0,"testimma","testcarbu",23.3,"testdesc");
         try{
             Voiture result3 = instance.create(obj);
-            fail("exception de code postal non déclenchée");
+            fail("exception  non déclenchée");
             instance.delete(result3);
         }
         catch(SQLException e){}
@@ -124,18 +123,16 @@ public class TaxiDAOTest {
         Voiture obj = new Voiture(0,"testimma","testcarbu",23.3,"testdesc");
         TaxiDAO instance = new TaxiDAO();
         instance.setConnection(dbconnect);
-        
-        
         obj.setCarbu("testcarbu2");
         obj.setDesc("testdesc2");
         obj.setImma("testimma2");
         obj.setPkm(20.2);
-        Voiture expResult = new Voiture(0,"testimma","testcarbu",23.3,"testdesc");
+        Voiture expResult = obj;
         Voiture result = instance.update(obj);
-        assertEquals(expResult.getCarbu(), result.getCarbu());
-        assertEquals(expResult.getDesc(), result.getDesc());
-        assertEquals(expResult.getPkm(), result.getPkm());
-        assertEquals(expResult.getImma(), result.getImma());
+        assertEquals("Carburant différent ",expResult.getCarbu(), result.getCarbu());
+        assertEquals("description différente",expResult.getDesc(), result.getDesc());
+        assertEquals("prix au km différent",expResult.getPkm(), result.getPkm());
+        assertEquals("immatriculation différentes ",expResult.getImma(), result.getImma());
         instance.delete(obj);
     }
 
@@ -148,9 +145,14 @@ public class TaxiDAOTest {
         Voiture obj = new Voiture(0,"testimma","testcarbu",23.3,"testdesc");
         TaxiDAO instance = new TaxiDAO();
         instance.setConnection(dbconnect);
+        obj=instance.create(obj);
         instance.delete(obj);
+        try{
+            instance.read(obj.getIdtaxi());
+            fail("");
+        }catch(SQLException e){}
         
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -177,13 +179,19 @@ public class TaxiDAOTest {
     @Test
     public void testRechdesc() throws Exception {
         System.out.println("rechdesc");
-        String desc = "";
+        Voiture obj= new Voiture(0,"testimma","testcarbu",23.3,"testdesc");
+        Voiture obj1= new Voiture(0,"testimma1","testcarbu1",23.3,"testdesc");
+        String desc = "testdesc";
         TaxiDAO instance = new TaxiDAO();
-        List<Voiture> expResult = null;
+        instance.setConnection(dbconnect);
+        obj=instance.create(obj);
+        obj1=instance.create(obj1);
+        
         List<Voiture> result = instance.rechdesc(desc);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        if(result.indexOf(obj)<0) fail("record introuvable "+obj);
+        if(result.indexOf(obj1)<0) fail("record introuvable "+obj1);
+        instance.delete(obj);
+        instance.delete(obj1);
     }
 
     /**
