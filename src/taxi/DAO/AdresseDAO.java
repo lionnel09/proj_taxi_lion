@@ -1,4 +1,3 @@
-
 package taxi.DAO;
 
 import classe.metier.Adresse;
@@ -11,8 +10,9 @@ import java.sql.SQLException;
  * @author Hp
  */
 public class AdresseDAO extends DAO<Adresse> {
+
     /**
-     * récupération des données d'une Adresse  sur base de son identifiant
+     * récupération des données d'une Adresse sur base de son identifiant
      *
      * @throws SQLException code inconnu
      * @param idadr identifiant du Adresse
@@ -21,7 +21,7 @@ public class AdresseDAO extends DAO<Adresse> {
 
     @Override
     public Adresse read(int idadr) throws SQLException {
-        String req = "select * from api_proj_adresse where idclient= ?";
+        String req = "select * from api_proj_adresse where idadr= ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
             pstm.setInt(1, idadr);
             try (ResultSet rs = pstm.executeQuery()) {
@@ -40,8 +40,9 @@ public class AdresseDAO extends DAO<Adresse> {
             }
         }
     }
+
     /**
-     * création d'une Adresse  sur base des valeurs de son objet métier
+     * création d'une Adresse sur base des valeurs de son objet métier
      *
      * @throws SQLException erreur de création
      * @param obj Adresse à créer
@@ -50,10 +51,10 @@ public class AdresseDAO extends DAO<Adresse> {
     @Override
     public Adresse create(Adresse obj) throws SQLException {
         String req1 = "insert into api_proj_adresse (cp,localite,rue,num) values(?,?,?,?)";
-        String req2 = "select idclient from api_proj_adresse where idadr=?";
+        String req2 = "select idadr from api_proj_adresse where cp=? and localite=? and rue=? and num=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(req1);
                 PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
-            pstm1.setInt(1, obj.getIdadr());
+            pstm1.setInt(1, obj.getCp());
             pstm1.setString(2, obj.getLocalite());
             pstm1.setString(3, obj.getRue());
             pstm1.setString(4, obj.getNum());
@@ -62,7 +63,11 @@ public class AdresseDAO extends DAO<Adresse> {
             if (n == 0) {
                 throw new SQLException("erreur de creation adresse, aucune ligne créée");
             }
-            pstm2.setInt(1, obj.getIdadr());
+
+            pstm2.setInt(1, obj.getCp());
+            pstm2.setString(2, obj.getLocalite());
+            pstm2.setString(3, obj.getRue());
+            pstm2.setString(4, obj.getNum());
 
             try (ResultSet rs = pstm2.executeQuery()) {
                 if (rs.next()) {
@@ -76,7 +81,8 @@ public class AdresseDAO extends DAO<Adresse> {
         }
 
     }
-/**
+
+    /**
      * mise à jour des données de l'Adresse sur base de l'dentifiant
      *
      * @return Adresse
@@ -88,13 +94,12 @@ public class AdresseDAO extends DAO<Adresse> {
         String req = "update api_proj_adresse set cp=?,localite=?,rue=?,num=? where idadr=?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
-            
             pstm.setInt(1, obj.getCp());
             pstm.setString(2, obj.getLocalite());
             pstm.setString(2, obj.getRue());
             pstm.setString(3, obj.getNum());
             pstm.setInt(4, obj.getIdadr());
-            
+
             System.out.println(req);
             int n = pstm.executeUpdate();
             System.out.println(req);
@@ -103,9 +108,10 @@ public class AdresseDAO extends DAO<Adresse> {
             }
             return read(obj.getIdadr());
         }
-        
+
     }
-/**
+
+    /**
      * effacement de l'Adresse sur base de son identifiant
      *
      * @throws SQLException erreur d'effacement
@@ -113,7 +119,7 @@ public class AdresseDAO extends DAO<Adresse> {
      */
     @Override
     public void delete(Adresse obj) throws SQLException {
-        String req = "delete from api_client where idclient= ?";
+        String req = "delete from api_proj_adresse where idadr= ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
             pstm.setInt(1, obj.getIdadr());

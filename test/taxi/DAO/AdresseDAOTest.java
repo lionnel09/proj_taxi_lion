@@ -21,10 +21,12 @@ import static org.junit.Assert.*;
  * @author Hp
  */
 public class AdresseDAOTest {
+
     static Connection dbConnect;
+
     public AdresseDAOTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
         dbConnect = DBConnection.getConnection();
@@ -33,16 +35,16 @@ public class AdresseDAOTest {
             System.exit(1);
         }
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
         DBConnection.closeConnection();
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -56,20 +58,21 @@ public class AdresseDAOTest {
         int idadr = 0;
         AdresseDAO instance = new AdresseDAO();
         instance.setConnection(dbConnect);
-        Adresse obj=new Adresse(0,1000,"testloc","testrue","testnum");
+        Adresse obj = new Adresse(0, 7000, "testloc", "testrue", "tum");
         Adresse expResult = instance.create(obj);
-        idadr=expResult.getIdadr();
+        idadr = expResult.getIdadr();
         Adresse result = instance.read(idadr);
-        assertEquals("code postal",expResult.getCp(),result.getCp());
-        assertEquals("localité",expResult.getLocalite(), result.getLocalite());
-        assertEquals("rue",expResult.getRue(), result.getRue());
-        assertEquals("id différent",expResult.getIdadr(), result.getIdadr());
-         try{
-            result=instance.read(0);
+        assertEquals("code postal", expResult.getCp(), result.getCp());
+        assertEquals("localité", expResult.getLocalite(), result.getLocalite());
+        assertEquals("rue", expResult.getRue(), result.getRue());
+        assertEquals("id différent", expResult.getIdadr(), result.getIdadr());
+        try {
+            result = instance.read(0);
             fail("exception d'id inconnu non générée");
-        }catch(SQLException e){}
-       instance.delete(result);
-       
+        } catch (SQLException e) {
+        }
+        instance.delete(result);
+
     }
 
     /**
@@ -78,31 +81,31 @@ public class AdresseDAOTest {
     @Test
     public void testCreate() throws Exception {
         System.out.println("create");
-        Adresse obj=new Adresse(0,1000,"testloc","testrue","testnum");
+        Adresse obj = new Adresse(0, 7000, "testloc", "testrue", "tnum");
         AdresseDAO instance = new AdresseDAO();
         instance.setConnection(dbConnect);
-        Adresse expResult = new Adresse(0,1000,"testloc","testrue","testnum");
+        Adresse expResult = new Adresse(0, 7000, "testloc", "testrue", "tnum");
         Adresse result = instance.create(obj);
-        assertEquals("code postal",expResult.getCp(),result.getCp());
-        assertEquals("localité",expResult.getLocalite(), result.getLocalite());
-        assertEquals("rue",expResult.getRue(), result.getRue());
-        assertEquals("id différent",expResult.getIdadr(), result.getIdadr());
-        int idadr=result.getIdadr();
-        obj=new Adresse(0,1000,"testloc","testrue","testnum");
-        try{
+        assertEquals("code postal", expResult.getCp(), result.getCp());
+        assertEquals("localité", expResult.getLocalite(), result.getLocalite());
+        assertEquals("rue", expResult.getRue(), result.getRue());
+        assertNotEquals("id différent", expResult.getIdadr(), result.getIdadr());
+        int idadr = result.getIdadr();
+        obj = new Adresse(0, 7000, "testloc", "testrue", "tnum");
+        try {
             Adresse result2 = instance.create(obj);
             fail("exception de doublon non déclenchée");
             instance.delete(result2);
+        } catch (SQLException e) {
         }
-        catch(SQLException e){}
         instance.delete(result);
-        obj=new Adresse(0,1000,"testloc","testrue","testnum");
-        try{
+        obj = new Adresse(0, 1000, "testloc", "testrue", "tnum");
+        try {
             Adresse result3 = instance.create(obj);
             fail("exception de code postal non déclenchée");
             instance.delete(result3);
+        } catch (SQLException e) {
         }
-        catch(SQLException e){}
     }
 
     /**
@@ -111,19 +114,18 @@ public class AdresseDAOTest {
     @Test
     public void testUpdate() throws Exception {
         System.out.println("update");
-        Adresse obj = new Adresse(0,1000,"testloc","testrue","testnum");
+        Adresse obj = new Adresse(0, 7000, "testloc", "testrue", "tnum");
         AdresseDAO instance = new AdresseDAO();
         instance.setConnection(dbConnect);
-        obj=instance.create(obj);
+        obj = instance.create(obj);
         obj.setLocalite("testloc2");
         obj.setCp(1001);
-        obj.setNum("testnum2");
-        obj.setRue("");
+        obj.setNum("tnum2");
+        obj.setRue("testrue2");
         Adresse expResult = null;
         Adresse result = instance.update(obj);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -132,18 +134,18 @@ public class AdresseDAOTest {
     @Test
     public void testDelete() throws Exception {
         System.out.println("delete");
-        Adresse obj = new Adresse(0,1000,"testloc","testrue","testnum");
+        Adresse obj = new Adresse(0, 7000, "testloc", "testrue", "tnum");
         AdresseDAO instance = new AdresseDAO();
         instance.setConnection(dbConnect);
-        obj=instance.create(obj);
+        obj = instance.create(obj);
         instance.delete(obj);
         try {
             instance.read(obj.getIdadr());
             fail("exception de record introuvable non générée");
-            
+
+        } catch (SQLException e) {
         }
-        catch(SQLException e){}
-        
+
     }
-    
+
 }
