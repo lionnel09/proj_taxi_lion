@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class LocationDAO extends DAO<Location> {
     @Override
     public Location create(Location obj) throws SQLException {
         String req1 = "insert into api_proj_location (dateloc,kmtotal,acompte,total,idclient,idtaxi,idadr_deb,idadr_fin) values(?,?,?,?,?,?,?,?)";
-        String req2 = "select idclient from api_proj_location where idloc=?";
+        String req2 = "select idloc from api_proj_location where dateloc=? and kmtotal=? and acompte=? and total=? and idclient=? and idtaxi=? and idadr_deb=? and idadr_fin=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(req1);
                 PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
             pstm1.setDate(1, (Date) obj.getDateloc());
@@ -80,7 +81,15 @@ public class LocationDAO extends DAO<Location> {
             if (n == 0) {
                 throw new SQLException("erreur de creation location, aucune ligne créée");
             }
-            pstm2.setInt(1, obj.getIdloc());
+            pstm2.setDate(1, (Date) obj.getDateloc());
+            pstm2.setDouble(2, obj.getKmtotal());
+            pstm2.setDouble(3, obj.getAcompte());
+            pstm2.setDouble(4, obj.getTotal());
+
+            pstm2.setInt(5, obj.getFkclient());
+            pstm2.setInt(6, obj.getFktaxi());
+            pstm2.setInt(7, obj.getIdadr_deb());
+            pstm2.setInt(8, obj.getIdadr_fin());
 
             try (ResultSet rs = pstm2.executeQuery()) {
                 if (rs.next()) {
@@ -154,13 +163,13 @@ public class LocationDAO extends DAO<Location> {
      * @throws SQLException location sans commande
      */
     public Double aff(int idloc) throws SQLException {
-        System.out.println("fjodjfodjf");
+        
         Double tot = null;
         String req = "select * from total_paid where idloc=?";
-        System.out.println("fjodjfodjf");
+       
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
             pstm.setInt(1, idloc);
-            System.out.println("fjodjfodjf");
+            
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
                     tot = rs.getDouble("total");

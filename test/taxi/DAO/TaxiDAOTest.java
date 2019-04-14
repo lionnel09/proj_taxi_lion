@@ -1,13 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package taxi.DAO;
 
+import classe.metier.Adresse;
+import classe.metier.Client;
+import classe.metier.Location;
 import classe.metier.Voiture;
 import connect.DBConnection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -135,6 +136,31 @@ public class TaxiDAOTest {
             fail("exception de record introuvable non générée");
         } catch (SQLException e) {
         }
+        //Delete en cascade 
+        obj = instance.create(obj);
+        int idtaxi = obj.getIdtaxi();
+        Adresse adr = new Adresse(0, 7000, "testloc", "testrue", "tnum");
+        AdresseDAO adrinst = new AdresseDAO();
+        adrinst.setConnection(dbConnect);
+        adr = adrinst.create(adr);
+        int idadr = adr.getIdadr();
+        Client cl = new Client(0, "testnom", "testpre", "testtel", idadr);
+        ClientDAO clinst = new ClientDAO();
+        clinst.setConnection(dbConnect);
+        clinst.create(cl);
+        int idcl = cl.getIdclient();
+
+        Location loc = new Location(0, Date.valueOf(LocalDate.of(2019, Month.MARCH, 20)), 20.0, 22.3, 25.5, idcl, idtaxi, 1, idadr);
+        LocationDAO locinst = new LocationDAO();
+        locinst.setConnection(dbConnect);
+        locinst.create(loc);
+
+        int lc = loc.getIdloc();
+        locinst.delete(loc);
+        clinst.delete(cl);
+        adrinst.delete(adr);
+        instance.delete(obj);
+
     }
 
     /**

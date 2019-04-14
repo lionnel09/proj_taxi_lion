@@ -42,8 +42,8 @@ public class ClientDAO extends DAO<Client> {
 
     @Override
     public Client create(Client obj) throws SQLException {
-         String req1 = "insert into api__proj_client(nom,prenom,tel,idadr) values(?,?,?,?)";
-        String req2 = "select idclient from api_client where nom=? and prenom=? and tel=?";
+         String req1 = "insert into api_proj_client(nom,prenom,tel,idadr) values(?,?,?,?)";
+        String req2 = "select idclient from api_proj_client where nom=? and prenom=? and tel=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(req1);
                 PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
             pstm1.setString(1, obj.getNom());
