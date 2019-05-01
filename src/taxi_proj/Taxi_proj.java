@@ -112,6 +112,7 @@ public class Taxi_proj {
 //Modification d'un véhicule encodé
 
     public void modif() {
+        
         try {
             System.out.println("carburant  :");
             String carbu = sc.next();
