@@ -112,7 +112,7 @@ public class Taxi_proj {
 //Modification d'un véhicule encodé
 
     public void modif() {
-        
+
         try {
             System.out.println("carburant  :");
             String carbu = sc.next();
@@ -174,6 +174,7 @@ public class Taxi_proj {
 
 //Fonction main principal 
     public static void main(String[] args) throws SQLException {
+
         Taxi_proj tp = new Taxi_proj();
         tp.gestion();
     }
