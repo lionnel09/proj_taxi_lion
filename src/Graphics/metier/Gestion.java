@@ -1,8 +1,12 @@
 package Graphics.metier;
 
+import connect.DBConnection;
 import taxi_proj.Taxi_proj;
 import java.*;
-
+import java.awt.CardLayout;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import taxi.DAO.TaxiDAO;
 
 /**
  *
@@ -13,8 +17,20 @@ public class Gestion extends javax.swing.JFrame {
     /**
      * Creates new form Gestion
      */
+    CardLayout cardl;
+
     public Gestion() {
         initComponents();
+        CardLayout cardl = (CardLayout) this.getContentPane().getLayout();
+        Connection dbConnect = DBConnection.getConnection();
+        if (dbConnect == null) {
+            System.out.println("connection invalide");
+            JOptionPane.showMessageDialog(this, "connexion invalide", "ERREUR", JOptionPane.ERROR_MESSAGE);
+        }
+        TaxiDAO taxiDAO = new TaxiDAO();
+        taxiDAO.setConnection(dbConnect);
+        creaTaxi.setTaxiDAO(taxiDAO);
+        supTaxi.setTaxiDAO(taxiDAO);
     }
 
     /**
@@ -29,8 +45,13 @@ public class Gestion extends javax.swing.JFrame {
         menuBar1 = new java.awt.MenuBar();
         menu1 = new java.awt.Menu();
         menu2 = new java.awt.Menu();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        creaTaxi = new Graphics.metier.CreaTaxi();
+        supTaxi = new Graphics.metier.SupTaxi();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -43,42 +64,36 @@ public class Gestion extends javax.swing.JFrame {
         });
         menuBar1.add(menu2);
 
+        jMenuItem1.setText("jMenuItem1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.CardLayout());
+        getContentPane().add(creaTaxi, "cardCrea");
+        getContentPane().add(supTaxi, "cardSup");
 
-        jInternalFrame1.setVisible(true);
+        jMenu1.setText("Ouvrir");
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
-        );
+        jMenuItem2.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 12)); // NOI18N
+        jMenuItem2.setText("Creation de Taxi");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1)
-        );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1)
-        );
+        jMenuItem3.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 12)); // NOI18N
+        jMenuItem3.setText("Supprimer");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jInternalFrame1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -86,6 +101,14 @@ public class Gestion extends javax.swing.JFrame {
     private void menu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menu2ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        cardl.show(this.getContentPane(), "cardCrea");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        cardl.show(this.getContentPane(), "cardSup");
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,10 +146,15 @@ public class Gestion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLayeredPane jLayeredPane1;
+    private Graphics.metier.CreaTaxi creaTaxi;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;
+    private Graphics.metier.SupTaxi supTaxi;
     // End of variables declaration//GEN-END:variables
 }

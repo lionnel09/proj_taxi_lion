@@ -9,7 +9,6 @@ import classe.metier.Voiture;
 import java.util.*;
 import java.sql.*;
 
-
 /**
  *
  * @author Hp
@@ -98,9 +97,9 @@ public class TaxiDAO extends DAO<Voiture> {
             pstm.setString(1, obj.getImma());
             pstm.setString(2, obj.getCarbu());
             pstm.setString(4, obj.getDesc());
-            
+
             int n = pstm.executeUpdate();
-            
+
             if (n == 0) {
                 throw new SQLException("aucune ligne taxi mise à jour");
             }
@@ -120,6 +119,19 @@ public class TaxiDAO extends DAO<Voiture> {
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
             pstm.setInt(1, obj.getIdtaxi());
+            int n = pstm.executeUpdate();
+            if (n == 0) {
+                throw new SQLException("aucune ligne taxi  effacée");
+            }
+
+        }
+    }
+
+    public void delete(String crit) throws SQLException {
+        String req = "delete from api_proj_taxi where immatriculation= ?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+
+            pstm.setString(1, crit);
             int n = pstm.executeUpdate();
             if (n == 0) {
                 throw new SQLException("aucune ligne taxi  effacée");
@@ -178,13 +190,13 @@ public class TaxiDAO extends DAO<Voiture> {
                     Double pkm = rs.getDouble("PRIXKM");
                     String imma = rs.getString("IMMATRICULATION");
                     vtdesc.add(new Voiture(idtaxi, imma, carbu, pkm, desc));
-                   
+
                 }
-                 if (!trouve) {
-                        System.out.println("Taxi non trouvé");
-                    } else {
-                        return vtdesc;
-                    }
+                if (!trouve) {
+                    System.out.println("Taxi non trouvé");
+                } else {
+                    return vtdesc;
+                }
             }
 
         }
@@ -209,4 +221,5 @@ public class TaxiDAO extends DAO<Voiture> {
         }
         return v;
     }
+
 }
