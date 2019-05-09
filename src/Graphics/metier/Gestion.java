@@ -21,7 +21,7 @@ public class Gestion extends javax.swing.JFrame {
 
     public Gestion() {
         initComponents();
-        CardLayout cardl = (CardLayout) this.getContentPane().getLayout();
+        cardl = (CardLayout) this.getContentPane().getLayout();
         Connection dbConnect = DBConnection.getConnection();
         if (dbConnect == null) {
             System.out.println("connection invalide");
