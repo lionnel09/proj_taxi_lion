@@ -5,6 +5,11 @@
  */
 package Graphics.metier;
 
+import classe.metier.Voiture;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import taxi.DAO.TaxiDAO;
+
 /**
  *
  * @author Hp
@@ -14,6 +19,9 @@ public class Rechimma extends javax.swing.JPanel {
     /**
      * Creates new form Rechimma
      */
+    TaxiDAO tx=null;
+    Voiture vt=null;
+    DefaultTableModel dft1 = new DefaultTableModel(); 
     public Rechimma() {
         initComponents();
     }

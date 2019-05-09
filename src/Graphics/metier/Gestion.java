@@ -48,10 +48,12 @@ public class Gestion extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         creaTaxi = new Graphics.metier.CreaTaxi();
         supTaxi = new Graphics.metier.SupTaxi();
+        rechimma = new Graphics.metier.Rechimma();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -70,6 +72,7 @@ public class Gestion extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.CardLayout());
         getContentPane().add(creaTaxi, "cardCrea");
         getContentPane().add(supTaxi, "cardSup");
+        getContentPane().add(rechimma, "cardimma");
 
         jMenu1.setText("Ouvrir");
 
@@ -91,6 +94,14 @@ public class Gestion extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem4.setText("imma");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -109,6 +120,10 @@ public class Gestion extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         cardl.show(this.getContentPane(), "cardSup");
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        cardl.show(this.getContentPane(), "cardimma");
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,9 +167,11 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;
+    private Graphics.metier.Rechimma rechimma;
     private Graphics.metier.SupTaxi supTaxi;
     // End of variables declaration//GEN-END:variables
 }
