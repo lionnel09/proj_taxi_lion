@@ -31,6 +31,7 @@ public class Gestion extends javax.swing.JFrame {
         taxiDAO.setConnection(dbConnect);
         creaTaxi.setTaxiDAO(taxiDAO);
         supTaxi.setTaxiDAO(taxiDAO);
+        rechimma.setTaxiDAO(taxiDAO);
     }
 
     /**
@@ -94,6 +95,7 @@ public class Gestion extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem4.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 15)); // NOI18N
         jMenuItem4.setText("imma");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

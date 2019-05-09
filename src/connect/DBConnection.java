@@ -34,6 +34,7 @@ public class DBConnection {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
             String url = "jdbc:oracle:thin:@//" + serverName + ":" + dbPort + "/" + dbName;
+            System.out.println(serverName+" "+dbName);
             dbConnect = DriverManager.getConnection(url, username, password);
             return dbConnect;
 

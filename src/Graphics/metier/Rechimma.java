@@ -25,6 +25,9 @@ public class Rechimma extends javax.swing.JPanel {
     public Rechimma() {
         initComponents();
     }
+    public void setTaxiDAO(TaxiDAO tx) {
+        this.tx = tx;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,6 +44,7 @@ public class Rechimma extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        rech = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 1, 24)); // NOI18N
         jLabel2.setText("Taxi Voitus");
@@ -57,6 +61,7 @@ public class Rechimma extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 10)); // NOI18N
         jLabel3.setText("Resultat :");
 
+        jTable1.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 10)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -70,6 +75,14 @@ public class Rechimma extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        rech.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 13)); // NOI18N
+        rech.setText("Recherche");
+        rech.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rechActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,29 +90,32 @@ public class Rechimma extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jLabel1)
                         .addGap(75, 75, 75)
-                        .addComponent(crit, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(crit, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(rech))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel3)
                         .addGap(35, 35, 35)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(jLabel2)))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel2)
-                .addGap(65, 65, 65)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(crit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(crit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rech))
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
@@ -109,17 +125,22 @@ public class Rechimma extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void critActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_critActionPerformed
-        try{
+       
+    }//GEN-LAST:event_critActionPerformed
+
+    private void rechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechActionPerformed
+         try{
             String nomrech=crit.getText();
             vt = ((TaxiDAO) tx).rechimma(nomrech);
+            System.out.println(vt.toString());
             dft1.addColumn(vt.getCarbu());
-            dft1.addColumn(vt.getPkm()+"€");
+            dft1.addColumn(vt.getPkm()+" €");
             dft1.addColumn(vt.getDesc());
             jTable1.setModel(dft1);
         }catch(Exception e ){
             JOptionPane.showMessageDialog(this,e.getMessage(),"ERREUR",JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_critActionPerformed
+    }//GEN-LAST:event_rechActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -129,5 +150,6 @@ public class Rechimma extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton rech;
     // End of variables declaration//GEN-END:variables
 }
