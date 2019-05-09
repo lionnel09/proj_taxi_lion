@@ -55,6 +55,7 @@ public class Gestion extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -75,7 +76,7 @@ public class Gestion extends javax.swing.JFrame {
         getContentPane().add(supTaxi, "cardSup");
         getContentPane().add(rechimma, "cardimma");
 
-        jMenu1.setText("Ouvrir");
+        jMenu1.setText("Taxi");
 
         jMenuItem2.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 12)); // NOI18N
         jMenuItem2.setText("Creation de Taxi");
@@ -87,7 +88,7 @@ public class Gestion extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 12)); // NOI18N
-        jMenuItem3.setText("Supprimer");
+        jMenuItem3.setText("Gestion Taxi");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -96,7 +97,7 @@ public class Gestion extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuItem4.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 15)); // NOI18N
-        jMenuItem4.setText("imma");
+        jMenuItem4.setText("Mise à Jour");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -105,6 +106,9 @@ public class Gestion extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Location");
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -165,6 +169,7 @@ public class Gestion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Graphics.metier.CreaTaxi creaTaxi;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
