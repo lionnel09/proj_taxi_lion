@@ -111,10 +111,10 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="Graphics.metier.Rechimma" name="rechimma">
+    <Component class="Graphics.metier.Maj" name="maj">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-          <CardConstraints cardName="cardimma"/>
+          <CardConstraints cardName="cardupdate"/>
         </Constraint>
       </Constraints>
     </Component>
