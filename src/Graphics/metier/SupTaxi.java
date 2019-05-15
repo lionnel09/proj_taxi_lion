@@ -57,6 +57,8 @@ public class SupTaxi extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(729, 522));
+
         jLabel1.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 1, 24)); // NOI18N
         jLabel1.setText("Taxi Voitus");
 
