@@ -169,6 +169,7 @@ public class CreaCli extends javax.swing.JPanel {
             Adresse adr = afl.get(pos);
             Client cl = new Client(0, n, pr, t, adr.getIdadr());
             JOptionPane.showMessageDialog(this, "Client  créé", "Succès", JOptionPane.INFORMATION_MESSAGE);
+            inject_adr();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
         }

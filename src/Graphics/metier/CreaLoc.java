@@ -5,6 +5,12 @@
  */
 package Graphics.metier;
 
+import javax.swing.DefaultComboBoxModel;
+import taxi.DAO.AdresseDAO;
+import taxi.DAO.ClientDAO;
+import taxi.DAO.LocationDAO;
+import taxi.DAO.TaxiDAO;
+
 /**
  *
  * @author lionn
@@ -14,9 +20,33 @@ public class CreaLoc extends javax.swing.JPanel {
     /**
      * Creates new form CreaLoc
      */
+    ClientDAO clientDAO=null;
+    AdresseDAO adresseDAO=null;
+    LocationDAO locationDAO=null;
+    TaxiDAO taxiDAO=null;
+    DefaultComboBoxModel dlmcl = new DefaultComboBoxModel();
+    DefaultComboBoxModel dlmtx = new DefaultComboBoxModel();
+    DefaultComboBoxModel dlmadrdeb = new DefaultComboBoxModel();
+    DefaultComboBoxModel dlmadrfin = new DefaultComboBoxModel();
     public CreaLoc() {
         initComponents();
     }
+     public void setAdresseDAO(AdresseDAO adresseDAO) {
+        this.adresseDAO = adresseDAO;
+    }
+
+    public void setClientDAO(ClientDAO clientDAO) {
+        this.clientDAO = clientDAO;
+    }
+     public void setTaxiDAO(TaxiDAO taxiDAO) {
+        this.taxiDAO=taxiDAO;
+    }
+
+    public void setLocationDAO(LocationDAO locationDAO) {
+        this.locationDAO = locationDAO;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +99,11 @@ public class CreaLoc extends javax.swing.JPanel {
         });
 
         cl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clActionPerformed(evt);
+            }
+        });
 
         taxi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -108,11 +143,10 @@ public class CreaLoc extends javax.swing.JPanel {
                                     .addComponent(jLabel8))
                                 .addGap(106, 106, 106)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                        .addComponent(km)
-                                        .addComponent(acmpt)
-                                        .addComponent(tot))
+                                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(km)
+                                    .addComponent(acmpt)
+                                    .addComponent(tot)
                                     .addComponent(cl, 0, 319, Short.MAX_VALUE)
                                     .addComponent(taxi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(adrdeb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,6 +206,10 @@ public class CreaLoc extends javax.swing.JPanel {
     private void totActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totActionPerformed
+
+    private void clActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

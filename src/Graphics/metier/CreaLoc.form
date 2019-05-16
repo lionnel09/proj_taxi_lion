@@ -35,12 +35,10 @@
                               </Group>
                               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="date" pref="230" max="32767" attributes="0"/>
-                                      <Component id="km" max="32767" attributes="0"/>
-                                      <Component id="acmpt" max="32767" attributes="0"/>
-                                      <Component id="tot" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="date" pref="230" max="32767" attributes="0"/>
+                                  <Component id="km" max="32767" attributes="0"/>
+                                  <Component id="acmpt" max="32767" attributes="0"/>
+                                  <Component id="tot" max="32767" attributes="0"/>
                                   <Component id="cl" pref="319" max="32767" attributes="0"/>
                                   <Component id="taxi" alignment="0" max="32767" attributes="0"/>
                                   <Component id="adrdeb" alignment="0" max="32767" attributes="0"/>
@@ -173,6 +171,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

@@ -9,6 +9,7 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import taxi.DAO.AdresseDAO;
 import taxi.DAO.ClientDAO;
+import taxi.DAO.LocationDAO;
 import taxi.DAO.TaxiDAO;
 
 /**
@@ -33,6 +34,8 @@ public class Gestion extends javax.swing.JFrame {
         TaxiDAO taxiDAO = new TaxiDAO();
         AdresseDAO adresseDAO = new AdresseDAO();
         ClientDAO clientDAO=new ClientDAO();
+        LocationDAO locationDAO=new LocationDAO();
+        locationDAO.setConnection(dbConnect);
         adresseDAO.setConnection(dbConnect);
         clientDAO.setConnection(dbConnect);
         taxiDAO.setConnection(dbConnect);
@@ -43,6 +46,12 @@ public class Gestion extends javax.swing.JFrame {
         creaCli.setAdresseDAO(adresseDAO);
         creaCli.setClientDAO(clientDAO);
         creaCli.inject_adr();
+        creaLoc.setAdresseDAO(adresseDAO);
+        creaLoc.setClientDAO(clientDAO);
+        creaLoc.setLocationDAO(locationDAO);
+        creaLoc.setTaxiDAO(taxiDAO);
+        
+        
         
     }
 
@@ -64,6 +73,7 @@ public class Gestion extends javax.swing.JFrame {
         maj = new Graphics.metier.Maj();
         creaAdr = new Graphics.metier.CreaAdr();
         creaCli = new Graphics.metier.CreaCli();
+        creaLoc = new Graphics.metier.CreaLoc();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -96,6 +106,7 @@ public class Gestion extends javax.swing.JFrame {
         getContentPane().add(maj, "cardupdate");
         getContentPane().add(creaAdr, "cardCreaAdr");
         getContentPane().add(creaCli, "cardCreaCli");
+        getContentPane().add(creaLoc, "cardcrealoc");
 
         jMenu1.setText("Taxi");
 
@@ -130,7 +141,7 @@ public class Gestion extends javax.swing.JFrame {
 
         jMenu2.setText("Location");
 
-        jMenuItem5.setText("jMenuItem5");
+        jMenuItem5.setText("Ajouter");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -186,7 +197,7 @@ public class Gestion extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        cardl.show(this.getContentPane(), "cardcrealoc");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
@@ -236,6 +247,7 @@ public class Gestion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Graphics.metier.CreaAdr creaAdr;
     private Graphics.metier.CreaCli creaCli;
+    private Graphics.metier.CreaLoc creaLoc;
     private Graphics.metier.CreaTaxi creaTaxi;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
