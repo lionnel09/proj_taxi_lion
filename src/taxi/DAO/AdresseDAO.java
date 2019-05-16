@@ -4,6 +4,8 @@ import classe.metier.Adresse;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -129,6 +131,23 @@ public class AdresseDAO extends DAO<Adresse> {
             }
 
         }
+    }
+    public List<Adresse> aff() throws SQLException{
+        List<Adresse> a = new ArrayList();
+        String req = "select * from api_proj_adresse";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("IDADR");
+                    int cp = rs.getInt("CP");
+                    String loc = rs.getString("LOCALITE");
+                    String rue = rs.getString("RUE");
+                    String num = rs.getString("NUM");
+                    a.add(new Adresse(id,cp,loc,rue,num));
+                }
+            }
+        }
+        return a;
     }
 
 }

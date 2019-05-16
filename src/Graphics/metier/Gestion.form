@@ -165,5 +165,12 @@
         </Constraint>
       </Constraints>
     </Component>
+    <Component class="Graphics.metier.CreaCli" name="creaCli">
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+          <CardConstraints cardName="cardCreaCli"/>
+        </Constraint>
+      </Constraints>
+    </Component>
   </SubComponents>
 </Form>

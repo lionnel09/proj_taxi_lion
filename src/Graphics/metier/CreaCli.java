@@ -5,7 +5,13 @@
  */
 package Graphics.metier;
 
+import classe.metier.Adresse;
+import classe.metier.Client;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import taxi.DAO.AdresseDAO;
 import taxi.DAO.ClientDAO;
 
 /**
@@ -18,11 +24,35 @@ public class CreaCli extends javax.swing.JPanel {
      * Creates new form CreaCli
      */
     ClientDAO clientDAO = null;
+    AdresseDAO adresseDAO = null;
+    DefaultComboBoxModel dlm = new DefaultComboBoxModel();
+    List<Adresse> afl;
+
     public CreaCli() {
         initComponents();
     }
+
+    public void inject_adr() {
+        try {
+            afl = adresseDAO.aff();
+            System.out.println(afl);
+            for (int i = 0; i < afl.size(); i++) {
+                dlm.addElement(afl.get(i).toString());
+
+            }
+            adr.setModel(dlm);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
+
+    public void setAdresseDAO(AdresseDAO adresseDAO) {
+        this.adresseDAO = adresseDAO;
+    }
+
     public void setClientDAO(ClientDAO clientDAO) {
-        this.clientDAO=clientDAO;
+        this.clientDAO = clientDAO;
     }
 
     /**
@@ -126,24 +156,23 @@ public class CreaCli extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void adrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adrActionPerformed
-        try{
-           
-        }catch(Exception e){
-            
-        }
-        
+
+
     }//GEN-LAST:event_adrActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         try{
-           String n=nom.getText();
-           String pr=prenom.getText();
-           String t=tel.getText();
-           
-        }catch(Exception e){
-            
+        try {
+            String n = nom.getText();
+            String pr = prenom.getText();
+            String t = tel.getText();
+            int pos = adr.getSelectedIndex();
+            Adresse adr = afl.get(pos);
+            Client cl = new Client(0, n, pr, t, adr.getIdadr());
+            JOptionPane.showMessageDialog(this, "Client  créé", "Succès", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
