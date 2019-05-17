@@ -9,6 +9,8 @@ import classe.metier.Client;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -101,6 +103,24 @@ public class ClientDAO extends DAO<Client> {
             }
 
         }
+    }
+    public List<Client> aff() throws SQLException{
+        List<Client> c = new ArrayList();
+        String req = "select * from api_proj_client";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("IDCLIENT");
+                    String nom = rs.getString("NOM");
+                    String prenom = rs.getString("PRENOM");
+                    String tel = rs.getString("TEL");
+                    int adr = rs.getInt("IDADR");
+                    c.add(new Client(id, nom, prenom, tel, adr));
+                }
+            }
+        }
+        return c;
+        
     }
     
 }

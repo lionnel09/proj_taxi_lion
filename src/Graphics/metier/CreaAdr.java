@@ -48,6 +48,8 @@ public class CreaAdr extends javax.swing.JPanel {
         add = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(1298, 619));
+
         jLabel1.setText("Code Postal :");
 
         jLabel2.setText("Localité :");

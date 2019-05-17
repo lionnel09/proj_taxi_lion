@@ -150,7 +150,7 @@ public class TaxiDAOTest {
         clinst.create(cl);
         int idcl = cl.getIdclient();
 
-        Location loc = new Location(0, Date.valueOf(LocalDate.of(2019, Month.MARCH, 20)), 20.0, 22.3, 25.5, idcl, idtaxi, 1, idadr);
+        Location loc = new Location(0, LocalDate.of(2019, Month.MARCH, 20), 20.0, 22.3, 25.5, idcl, idtaxi, 1, idadr);
         LocationDAO locinst = new LocationDAO();
         locinst.setConnection(dbConnect);
         locinst.create(loc);

@@ -36,7 +36,7 @@ public class LocationDAO extends DAO<Location> {
             pstm.setInt(1, idloc);
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
-                    Date date = rs.getDate("DATELOC");
+                    LocalDate date = rs.getDate("DATELOC").toLocalDate();
                     Double kmtotal = rs.getDouble("KMTOTAL");
                     Double acompte = rs.getDouble("ACOMPTE");
                     Double total = rs.getDouble("TOTAL");
@@ -68,7 +68,7 @@ public class LocationDAO extends DAO<Location> {
         String req2 = "select idloc from api_proj_location where dateloc=? and kmtotal=? and acompte=? and total=? and idclient=? and idtaxi=? and idadr_deb=? and idadr_fin=?";
         try (PreparedStatement pstm1 = dbConnect.prepareStatement(req1);
                 PreparedStatement pstm2 = dbConnect.prepareStatement(req2)) {
-            pstm1.setDate(1, (Date) obj.getDateloc());
+            pstm1.setDate(1, java.sql.Date.valueOf(obj.getDateloc()));
             pstm1.setDouble(2, obj.getKmtotal());
             pstm1.setDouble(3, obj.getAcompte());
             pstm1.setDouble(4, obj.getTotal());
@@ -81,7 +81,7 @@ public class LocationDAO extends DAO<Location> {
             if (n == 0) {
                 throw new SQLException("erreur de creation location, aucune ligne créée");
             }
-            pstm2.setDate(1, (Date) obj.getDateloc());
+            pstm2.setDate(1, java.sql.Date.valueOf(obj.getDateloc()));
             pstm2.setDouble(2, obj.getKmtotal());
             pstm2.setDouble(3, obj.getAcompte());
             pstm2.setDouble(4, obj.getTotal());
@@ -116,7 +116,7 @@ public class LocationDAO extends DAO<Location> {
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
             pstm.setInt(8, obj.getIdloc());
-            pstm.setDate(1, (Date) obj.getDateloc());
+            pstm.setDate(1, java.sql.Date.valueOf(obj.getDateloc()));
             pstm.setDouble(2, obj.getKmtotal());
             pstm.setDouble(3, obj.getAcompte());
             pstm.setDouble(4, obj.getTotal());
@@ -163,13 +163,13 @@ public class LocationDAO extends DAO<Location> {
      * @throws SQLException location sans commande
      */
     public Double aff(int idloc) throws SQLException {
-        
+
         Double tot = null;
         String req = "select * from total_paid where idloc=?";
-       
+
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
             pstm.setInt(1, idloc);
-            
+
             try (ResultSet rs = pstm.executeQuery()) {
                 if (rs.next()) {
                     tot = rs.getDouble("total");
@@ -182,8 +182,27 @@ public class LocationDAO extends DAO<Location> {
         }
 
     }
-   
 
-    
+    public List<Location> aff() throws SQLException {
+        List<Location> l = new ArrayList();
+        String req = "select * from api_proj_location";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    int idloc = rs.getInt("IDLOC");
+                    LocalDate date = rs.getDate("DATELOC").toLocalDate();
+                    Double kmtotal = rs.getDouble("KMTOTAL");
+                    Double acompte = rs.getDouble("ACOMPTE");
+                    Double total = rs.getDouble("TOTAL");
+                    int idclient = rs.getInt("IDCLIENT");
+                    int idtaxi = rs.getInt("IDTAXI");
+                    int idadr_deb = rs.getInt("IDADR_DEB");
+                    int idadr_fin = rs.getInt("IDADR_FIN");
+                    l.add(new Location(idloc, date, kmtotal, acompte, total, idclient, idtaxi, idadr_deb, idadr_fin));
+                }
+            }
+        }
+        return l;
+    }
 
 }

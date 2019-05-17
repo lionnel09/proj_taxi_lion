@@ -1,5 +1,6 @@
 package classe.metier;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ public class Location {
     /**
      * date de Location
      */
-    protected java.util.Date dateloc;
+    protected LocalDate dateloc;
     /**
      * kilométrage total
      */
@@ -65,7 +66,7 @@ public class Location {
      * @param idadr_deb identifiant adresse de départ
      * @param idadr_fin identifiant adresse d'arrivé
      */
-    public Location(int idloc, Date dateloc, Double kmtotal, Double acompte, Double total, int fkclient, int fktaxi, int idadr_deb, int idadr_fin) {
+    public Location(int idloc, LocalDate dateloc, Double kmtotal, Double acompte, Double total, int fkclient, int fktaxi, int idadr_deb, int idadr_fin) {
         this.idloc = idloc;
         this.dateloc = dateloc;
         this.kmtotal = kmtotal;
@@ -118,7 +119,7 @@ public class Location {
      *
      * @return date de Location
      */
-    public Date getDateloc() {
+    public LocalDate getDateloc() {
         return dateloc;
     }
 
@@ -127,7 +128,7 @@ public class Location {
      *
      * @param dateloc date de Location
      */
-    public void setDateloc(Date dateloc) {
+    public void setDateloc(LocalDate dateloc) {
         this.dateloc = dateloc;
     }
 
@@ -182,7 +183,7 @@ public class Location {
      * @param idadr_deb adresse de départ
      */
     public void setIdadr_deb(int idadr_deb) {
-          this.idadr_deb = idadr_deb;
+        this.idadr_deb = idadr_deb;
     }
 
     /**

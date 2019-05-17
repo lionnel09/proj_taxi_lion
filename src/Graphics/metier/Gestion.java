@@ -50,6 +50,17 @@ public class Gestion extends javax.swing.JFrame {
         creaLoc.setClientDAO(clientDAO);
         creaLoc.setLocationDAO(locationDAO);
         creaLoc.setTaxiDAO(taxiDAO);
+        creaLoc.inject_adr();
+        creaLoc.inject_taxi();
+        creaLoc.inject_Client();
+        maj_Adr.inject_adr();
+        maj_Adr.inject_Client();
+        maj_Adr.inject_loc();
+        maj_Adr.inject_taxi();
+        maj_Adr.setLocationDAO(locationDAO);
+        maj_Adr.setAdresseDAO(adresseDAO);
+        maj_Adr.setTaxiDAO(taxiDAO);
+        maj_Adr.setClientDAO(clientDAO);
         
         
         
@@ -74,6 +85,7 @@ public class Gestion extends javax.swing.JFrame {
         creaAdr = new Graphics.metier.CreaAdr();
         creaCli = new Graphics.metier.CreaCli();
         creaLoc = new Graphics.metier.CreaLoc();
+        maj_Adr = new Graphics.metier.Maj_Adr();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -81,6 +93,7 @@ public class Gestion extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -100,6 +113,8 @@ public class Gestion extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(1298, 619));
         getContentPane().setLayout(new java.awt.CardLayout());
         getContentPane().add(creaTaxi, "cardCrea");
         getContentPane().add(supTaxi, "cardSup");
@@ -107,6 +122,7 @@ public class Gestion extends javax.swing.JFrame {
         getContentPane().add(creaAdr, "cardCreaAdr");
         getContentPane().add(creaCli, "cardCreaCli");
         getContentPane().add(creaLoc, "cardcrealoc");
+        getContentPane().add(maj_Adr, "cardmaj_adr");
 
         jMenu1.setText("Taxi");
 
@@ -148,6 +164,14 @@ public class Gestion extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem5);
+
+        jMenuItem8.setText("gestion location");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
 
         jMenuBar1.add(jMenu2);
 
@@ -209,6 +233,10 @@ public class Gestion extends javax.swing.JFrame {
         cardl.show(this.getContentPane(), "cardCreaAdr");
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+       cardl.show(this.getContentPane(), "cardmaj_adr");
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -261,7 +289,9 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private Graphics.metier.Maj maj;
+    private Graphics.metier.Maj_Adr maj_Adr;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;

@@ -5,7 +5,24 @@
  */
 package Graphics.metier;
 
+import classe.metier.Adresse;
+import classe.metier.Client;
+import classe.metier.Location;
+import classe.metier.Voiture;
+import java.awt.HeadlessException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import taxi.DAO.AdresseDAO;
 import taxi.DAO.ClientDAO;
 import taxi.DAO.LocationDAO;
@@ -18,35 +35,92 @@ import taxi.DAO.TaxiDAO;
 public class CreaLoc extends javax.swing.JPanel {
 
     /**
-     * Creates new form CreaLoc
+     * Creates new form Crea
      */
-    ClientDAO clientDAO=null;
-    AdresseDAO adresseDAO=null;
-    LocationDAO locationDAO=null;
-    TaxiDAO taxiDAO=null;
+    ClientDAO clientDAO = null;
+    AdresseDAO adresseDAO = null;
+    LocationDAO locationDAO = null;
+    TaxiDAO taxiDAO = null;
     DefaultComboBoxModel dlmcl = new DefaultComboBoxModel();
     DefaultComboBoxModel dlmtx = new DefaultComboBoxModel();
     DefaultComboBoxModel dlmadrdeb = new DefaultComboBoxModel();
     DefaultComboBoxModel dlmadrfin = new DefaultComboBoxModel();
+
+    List<Adresse> afl;
+    List<Adresse> afl1;
+    List<Voiture> vtl;
+    List<Client> cll;
+
     public CreaLoc() {
         initComponents();
+        inject_taxi();
+        inject_adr();
+        inject_Client();
     }
-     public void setAdresseDAO(AdresseDAO adresseDAO) {
+
+    public void setAdresseDAO(AdresseDAO adresseDAO) {
         this.adresseDAO = adresseDAO;
     }
 
     public void setClientDAO(ClientDAO clientDAO) {
         this.clientDAO = clientDAO;
     }
-     public void setTaxiDAO(TaxiDAO taxiDAO) {
-        this.taxiDAO=taxiDAO;
+
+    public void setTaxiDAO(TaxiDAO taxiDAO) {
+        this.taxiDAO = taxiDAO;
     }
 
     public void setLocationDAO(LocationDAO locationDAO) {
         this.locationDAO = locationDAO;
     }
-    
-    
+
+    public void inject_Client() {
+        try {
+            cll = clientDAO.aff();
+            System.out.println(cll);
+            for (int i = 0; i < cll.size(); i++) {
+                dlmcl.addElement(cll.get(i).toString());
+
+            }
+            cl.setModel(dlmcl);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
+
+    public void inject_taxi() {
+        try {
+            vtl = taxiDAO.aff();
+            System.out.println(vtl);
+            for (int i = 0; i < vtl.size(); i++) {
+                dlmtx.addElement(vtl.get(i).toString());
+
+            }
+            taxi.setModel(dlmtx);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
+
+    public void inject_adr() {
+        try {
+            afl = adresseDAO.aff();
+            afl1=adresseDAO.aff();
+            System.out.println(afl);
+            for (int i = 0; i < afl.size(); i++) {
+                dlmadrdeb.addElement(afl.get(i).toString());
+                dlmadrfin.addElement(afl1.get(i).toString());
+
+            }
+            adrdeb.setModel(dlmadrdeb);
+            adrfin.setModel(dlmadrfin);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,7 +139,6 @@ public class CreaLoc extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        date = new javax.swing.JTextField();
         km = new javax.swing.JTextField();
         acmpt = new javax.swing.JTextField();
         tot = new javax.swing.JTextField();
@@ -75,21 +148,32 @@ public class CreaLoc extends javax.swing.JPanel {
         adrfin = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        dt = new javax.swing.JFormattedTextField();
 
+        setPreferredSize(new java.awt.Dimension(1298, 619));
+
+        jLabel1.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel1.setText("Date : ");
 
+        jLabel2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel2.setText("Km Total :");
 
+        jLabel3.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel3.setText("Acompte :");
 
+        jLabel4.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel4.setText("Total :");
 
+        jLabel5.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel5.setText("Client :");
 
+        jLabel6.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel6.setText("Taxi :");
 
+        jLabel7.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel7.setText("Adresse Départ :");
 
+        jLabel8.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel8.setText("Adresse d'arrivée :");
 
         tot.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +195,7 @@ public class CreaLoc extends javax.swing.JPanel {
 
         adrfin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jButton1.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
         jButton1.setText("Ajouter");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,8 +203,15 @@ public class CreaLoc extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Gill Sans Ultra Bold", 1, 24)); // NOI18N
         jLabel9.setText("Taxi Voitus");
+
+        try {
+            dt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        dt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -142,29 +234,29 @@ public class CreaLoc extends javax.swing.JPanel {
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel8))
                                 .addGap(106, 106, 106)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(km)
                                     .addComponent(acmpt)
                                     .addComponent(tot)
-                                    .addComponent(cl, 0, 319, Short.MAX_VALUE)
+                                    .addComponent(adrfin, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dt)
+                                    .addComponent(cl, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(taxi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(adrdeb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(adrfin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(adrdeb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(277, 277, 277)
                         .addComponent(jLabel9)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel9)
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -193,14 +285,41 @@ public class CreaLoc extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(adrfin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(28, 28, 28))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+        try {
+            
+            String datedeb = dt.getText();
+            int jourd = Integer.parseInt(datedeb.substring(0, 2));
+            int moisd = Integer.parseInt(datedeb.substring(3, 5));
+            int and = Integer.parseInt(datedeb.substring(6));
+            System.out.println("jour :" + jourd + "Mois:" + moisd + "année" + and);
+            LocalDate date = LocalDate.of(and, moisd, jourd);
+            System.out.println(date);
+            Double ktotal = Double.parseDouble(km.getText());
+            Double acompte = Double.parseDouble(acmpt.getText());
+            Double total = Double.parseDouble(tot.getText());
+            int fkcl = cl.getSelectedIndex();
+            Client client = cll.get(fkcl);
+            int fktx = taxi.getSelectedIndex();
+            Voiture voiture = vtl.get(fktx);
+            int fkadrdeb = adrdeb.getSelectedIndex();
+            Adresse adressed = afl.get(fkadrdeb);
+            int fkadrfin = adrfin.getSelectedIndex();
+            Adresse adressef = afl1.get(fkadrfin);
+            Location l = new Location(0, date, ktotal, acompte, total, client.getIdclient(), voiture.getIdtaxi(), adressed.getIdadr(), adressef.getIdadr());
+            System.out.println(l);
+            locationDAO.create(l);
+            JOptionPane.showMessageDialog(this, "Location créé", "Succès", JOptionPane.INFORMATION_MESSAGE);
+        } catch (HeadlessException | NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void totActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totActionPerformed
@@ -217,7 +336,7 @@ public class CreaLoc extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> adrdeb;
     private javax.swing.JComboBox<String> adrfin;
     private javax.swing.JComboBox<String> cl;
-    private javax.swing.JTextField date;
+    private javax.swing.JFormattedTextField dt;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

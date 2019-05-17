@@ -5,6 +5,17 @@
  */
 package Graphics.metier;
 
+import classe.metier.*;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import taxi.DAO.AdresseDAO;
+import taxi.DAO.ClientDAO;
+import taxi.DAO.LocationDAO;
+import taxi.DAO.TaxiDAO;
+
 /**
  *
  * @author lionn
@@ -14,10 +25,101 @@ public class Maj_Adr extends javax.swing.JPanel {
     /**
      * Creates new form Maj_Adr
      */
+    ClientDAO clientDAO = null;
+    AdresseDAO adresseDAO = null;
+    LocationDAO locationDAO = null;
+    TaxiDAO taxiDAO = null;
+    DefaultComboBoxModel dlmcl = new DefaultComboBoxModel();
+    DefaultComboBoxModel dlmtx = new DefaultComboBoxModel();
+    DefaultComboBoxModel dlmadrdeb = new DefaultComboBoxModel();
+    DefaultComboBoxModel dlmadrfin = new DefaultComboBoxModel();
+    DefaultComboBoxModel dlmloc = new DefaultComboBoxModel();
+    List<Location> loc;
+    List<Adresse> afl;
+    List<Adresse> afl1;
+    List<Voiture> vtl;
+    List<Client> cll;
     public Maj_Adr() {
         initComponents();
+        inject_taxi();
+        inject_adr();
+        inject_Client();
+        inject_loc();
+    }
+public void setAdresseDAO(AdresseDAO adresseDAO) {
+        this.adresseDAO = adresseDAO;
     }
 
+    public void setClientDAO(ClientDAO clientDAO) {
+        this.clientDAO = clientDAO;
+    }
+
+    public void setTaxiDAO(TaxiDAO taxiDAO) {
+        this.taxiDAO = taxiDAO;
+    }
+
+    public void setLocationDAO(LocationDAO locationDAO) {
+        this.locationDAO = locationDAO;
+    }
+
+    public void inject_Client() {
+        try {
+            cll = clientDAO.aff();
+            System.out.println("maj"+cll);
+            for (int i = 0; i < cll.size(); i++) {
+                dlmcl.addElement(cll.get(i).toString());
+
+            }
+            cl.setModel(dlmcl);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
+
+    public void inject_taxi() {
+        try {
+            vtl = taxiDAO.aff();
+            System.out.println("maj"+vtl);
+            for (int i = 0; i < vtl.size(); i++) {
+                dlmtx.addElement(vtl.get(i).toString());
+
+            }
+            taxi.setModel(dlmtx);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
+
+    public void inject_adr() {
+        try {
+            afl = adresseDAO.aff();
+            System.out.println("maj"+afl);
+            for (int i = 0; i < afl.size(); i++) {
+                dlmadrdeb.addElement(afl.get(i).toString());
+                dlmadrfin.addElement(afl1.get(i).toString());
+            }
+            adrdeb.setModel(dlmadrdeb);
+            adrfin.setModel(dlmadrfin);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
+    public void inject_loc() {
+        try {
+            loc = locationDAO.aff();
+            System.out.println("maj"+loc);
+            for (int i = 0; i < loc.size(); i++) {
+                dlmloc.addElement(loc.get(i).toString());
+            }
+            locat.setModel(dlmloc);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,19 +129,282 @@ public class Maj_Adr extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        acmpt = new javax.swing.JTextField();
+        tot = new javax.swing.JTextField();
+        cl = new javax.swing.JComboBox<>();
+        taxi = new javax.swing.JComboBox<>();
+        adrdeb = new javax.swing.JComboBox<>();
+        adrfin = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        dt = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        km = new javax.swing.JTextField();
+        locat = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        maj = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        locatab = new javax.swing.JTable();
+
+        tot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totActionPerformed(evt);
+            }
+        });
+
+        cl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clActionPerformed(evt);
+            }
+        });
+
+        taxi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        adrdeb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        adrfin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton1.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jButton1.setText("supprimer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Gill Sans Ultra Bold", 1, 24)); // NOI18N
+        jLabel9.setText("Taxi Voitus");
+
+        try {
+            dt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        dt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel1.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel1.setText("Date : ");
+
+        jLabel2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel2.setText("Km Total :");
+
+        jLabel3.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel3.setText("Acompte :");
+
+        jLabel4.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel4.setText("Total :");
+
+        jLabel5.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel5.setText("Client :");
+
+        jLabel6.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel6.setText("Taxi :");
+
+        jLabel7.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel7.setText("Adresse Départ :");
+
+        jLabel8.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel8.setText("Adresse d'arrivée :");
+
+        locat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel10.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
+        jLabel10.setText("Location");
+
+        maj.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        maj.setText("Mettre à jour");
+        maj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                majActionPerformed(evt);
+            }
+        });
+
+        locatab.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(locatab);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton1))
+                    .addComponent(jLabel10))
+                .addGap(106, 106, 106)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(taxi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cl, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adrfin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adrdeb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(maj))
+                            .addComponent(locat, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tot, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(acmpt, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(km, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dt, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(547, 547, 547))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(jLabel9)
+                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(km, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(acmpt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(tot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(cl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(taxi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(adrdeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(adrfin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(locat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(maj)
+                    .addComponent(jButton1))
+                .addGap(43, 43, 43))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void totActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totActionPerformed
+
+    private void clActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void majActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_majActionPerformed
+
+        try {
+            
+            String datedeb = dt.getText();
+            int jourd = Integer.parseInt(datedeb.substring(0, 2));
+            int moisd = Integer.parseInt(datedeb.substring(3, 5));
+
+            int and = Integer.parseInt(datedeb.substring(6));
+            System.out.println("jour :" + jourd + "Mois:" + moisd + "année" + and);
+            LocalDate date = LocalDate.of(and, moisd, jourd);
+            System.out.println(date);
+            Double ktotal = Double.parseDouble(km.getText());
+            Double acompte = Double.parseDouble(acmpt.getText());
+            Double total = Double.parseDouble(tot.getText());
+            int fkcl = cl.getSelectedIndex();
+            Client client = cll.get(fkcl);
+            int fktx = taxi.getSelectedIndex();
+            Voiture voiture = vtl.get(fktx);
+            int fkadrdeb = adrdeb.getSelectedIndex();
+            Adresse adressed = afl.get(fkadrdeb);
+            int fkadrfin = adrfin.getSelectedIndex();
+            Adresse adressef = afl1.get(fkadrfin);
+            Location l = new Location(0, date, ktotal, acompte, total, client.getIdclient(), voiture.getIdtaxi(), adressed.getIdadr(), adressef.getIdadr());
+            System.out.println(l);
+            locationDAO.update(l);
+            JOptionPane.showMessageDialog(this, "Location mise à jour", "Succès", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_majActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField acmpt;
+    private javax.swing.JComboBox<String> adrdeb;
+    private javax.swing.JComboBox<String> adrfin;
+    private javax.swing.JComboBox<String> cl;
+    private javax.swing.JFormattedTextField dt;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField km;
+    private javax.swing.JComboBox<String> locat;
+    private javax.swing.JTable locatab;
+    private javax.swing.JButton maj;
+    private javax.swing.JComboBox<String> taxi;
+    private javax.swing.JTextField tot;
     // End of variables declaration//GEN-END:variables
 }

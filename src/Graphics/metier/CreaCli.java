@@ -30,6 +30,7 @@ public class CreaCli extends javax.swing.JPanel {
 
     public CreaCli() {
         initComponents();
+        inject_adr();
     }
 
     public void inject_adr() {
@@ -74,6 +75,8 @@ public class CreaCli extends javax.swing.JPanel {
         nom = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+
+        setPreferredSize(new java.awt.Dimension(1298, 619));
 
         jLabel1.setText("Nom :");
 
@@ -126,7 +129,7 @@ public class CreaCli extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(209, 209, 209)
                         .addComponent(jLabel5)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +154,7 @@ public class CreaCli extends javax.swing.JPanel {
                     .addComponent(adr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63)
                 .addComponent(jButton1)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -167,9 +170,11 @@ public class CreaCli extends javax.swing.JPanel {
             String t = tel.getText();
             int pos = adr.getSelectedIndex();
             Adresse adr = afl.get(pos);
+            System.out.println(adr.getIdadr());
             Client cl = new Client(0, n, pr, t, adr.getIdadr());
+            clientDAO.create(cl);
             JOptionPane.showMessageDialog(this, "Client  créé", "Succès", JOptionPane.INFORMATION_MESSAGE);
-            inject_adr();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
         }
