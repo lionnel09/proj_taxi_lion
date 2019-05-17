@@ -9,8 +9,12 @@ import classe.metier.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import taxi.DAO.AdresseDAO;
 import taxi.DAO.ClientDAO;
 import taxi.DAO.LocationDAO;
@@ -39,14 +43,24 @@ public class Maj_Adr extends javax.swing.JPanel {
     List<Adresse> afl1;
     List<Voiture> vtl;
     List<Client> cll;
+    DefaultTableModel dft1 = new DefaultTableModel();
+
     public Maj_Adr() {
         initComponents();
-        inject_taxi();
-        inject_adr();
-        inject_Client();
-        inject_loc();
+        dft1.addColumn("idloc");
+        dft1.addColumn("DateLoc");
+        dft1.addColumn("Kmtotal");
+        dft1.addColumn("acompte");
+        dft1.addColumn("total");
+        dft1.addColumn("taxi");
+        dft1.addColumn("client");
+        dft1.addColumn("adresse de départ");
+        dft1.addColumn("adresse de fin");
+        locatab.setModel(dft1);
+        
     }
-public void setAdresseDAO(AdresseDAO adresseDAO) {
+
+    public void setAdresseDAO(AdresseDAO adresseDAO) {
         this.adresseDAO = adresseDAO;
     }
 
@@ -65,12 +79,12 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
     public void inject_Client() {
         try {
             cll = clientDAO.aff();
-            System.out.println("maj"+cll);
+            System.out.println("maj" + cll);
             for (int i = 0; i < cll.size(); i++) {
                 dlmcl.addElement(cll.get(i).toString());
 
             }
-            cl.setModel(dlmcl);
+            cli.setModel(dlmcl);
 
         } catch (Exception e) {
             System.out.println("Exception" + e);
@@ -80,7 +94,7 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
     public void inject_taxi() {
         try {
             vtl = taxiDAO.aff();
-            System.out.println("maj"+vtl);
+            System.out.println("maj" + vtl);
             for (int i = 0; i < vtl.size(); i++) {
                 dlmtx.addElement(vtl.get(i).toString());
 
@@ -95,10 +109,12 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
     public void inject_adr() {
         try {
             afl = adresseDAO.aff();
-            System.out.println("maj"+afl);
+            afl1 = adresseDAO.aff();
+            System.out.println(afl);
             for (int i = 0; i < afl.size(); i++) {
                 dlmadrdeb.addElement(afl.get(i).toString());
                 dlmadrfin.addElement(afl1.get(i).toString());
+
             }
             adrdeb.setModel(dlmadrdeb);
             adrfin.setModel(dlmadrfin);
@@ -107,10 +123,11 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
             System.out.println("Exception" + e);
         }
     }
+
     public void inject_loc() {
         try {
             loc = locationDAO.aff();
-            System.out.println("maj"+loc);
+            System.out.println("maj" + loc);
             for (int i = 0; i < loc.size(); i++) {
                 dlmloc.addElement(loc.get(i).toString());
             }
@@ -120,6 +137,7 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
             System.out.println("Exception" + e);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,7 +149,7 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
 
         acmpt = new javax.swing.JTextField();
         tot = new javax.swing.JTextField();
-        cl = new javax.swing.JComboBox<>();
+        cli = new javax.swing.JComboBox<>();
         taxi = new javax.swing.JComboBox<>();
         adrdeb = new javax.swing.JComboBox<>();
         adrfin = new javax.swing.JComboBox<>();
@@ -152,6 +170,7 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
         maj = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         locatab = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         tot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,10 +178,10 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
             }
         });
 
-        cl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cl.addActionListener(new java.awt.event.ActionListener() {
+        cli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clActionPerformed(evt);
+                cliActionPerformed(evt);
             }
         });
 
@@ -240,12 +259,24 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
         ));
         jScrollPane1.setViewportView(locatab);
 
+        jButton2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
+        jButton2.setText("Toutes les Locations");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(539, 539, 539)
+                .addComponent(jLabel9)
+                .addGap(486, 486, 486))
             .addGroup(layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -255,39 +286,35 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton1))
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jButton1))
                 .addGap(106, 106, 106)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(taxi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cl, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(adrfin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(adrdeb, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(maj, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(154, 154, 154)
+                        .addComponent(jButton2)
+                        .addContainerGap(458, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(maj))
-                            .addComponent(locat, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tot, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(acmpt, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(km, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dt, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9)
-                .addGap(547, 547, 547))
+                            .addComponent(dt, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cli, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(taxi, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adrdeb, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(adrfin, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(locat, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addContainerGap()
                 .addComponent(jLabel9)
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,7 +337,7 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(cl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -328,11 +355,12 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
                             .addComponent(jLabel10)
                             .addComponent(locat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(maj)
-                    .addComponent(jButton1))
-                .addGap(43, 43, 43))
+                    .addComponent(maj, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(69, 69, 69))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -340,19 +368,32 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
         // TODO add your handling code here:
     }//GEN-LAST:event_totActionPerformed
 
-    private void clActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clActionPerformed
+    private void cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_clActionPerformed
+    }//GEN-LAST:event_cliActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
+
+        try {
+            int fkloc = locat.getSelectedIndex();
+            Location l = loc.get(fkloc);
+            locationDAO.delete(l);
+            inject_taxi();
+            inject_adr();
+            inject_Client();
+            inject_loc();
+            JOptionPane.showMessageDialog(this, "Location mise à jour", "Succès", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void majActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_majActionPerformed
 
         try {
-            
+
             String datedeb = dt.getText();
             int jourd = Integer.parseInt(datedeb.substring(0, 2));
             int moisd = Integer.parseInt(datedeb.substring(3, 5));
@@ -364,7 +405,7 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
             Double ktotal = Double.parseDouble(km.getText());
             Double acompte = Double.parseDouble(acmpt.getText());
             Double total = Double.parseDouble(tot.getText());
-            int fkcl = cl.getSelectedIndex();
+            int fkcl = cli.getSelectedIndex();
             Client client = cll.get(fkcl);
             int fktx = taxi.getSelectedIndex();
             Voiture voiture = vtl.get(fktx);
@@ -375,20 +416,52 @@ public void setAdresseDAO(AdresseDAO adresseDAO) {
             Location l = new Location(0, date, ktotal, acompte, total, client.getIdclient(), voiture.getIdtaxi(), adressed.getIdadr(), adressef.getIdadr());
             System.out.println(l);
             locationDAO.update(l);
+            inject_taxi();
+            inject_adr();
+            inject_Client();
+            inject_loc();
             JOptionPane.showMessageDialog(this, "Location mise à jour", "Succès", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_majActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            List<Location> locl = locationDAO.aff();
+            int nr = dft1.getRowCount();
+            for (int i = nr - 1; i >= 0; i--) {
+                dft1.removeRow(i);
+            }
+            for (Location l : locl) {
+                Vector v = new Vector();
+                v.add(l.getIdloc());
+                v.add(l.getDateloc());
+                v.add(l.getKmtotal());
+                v.add(l.getAcompte());
+                v.add(l.getTotal());
+                v.add(l.getFktaxi());
+                v.add(l.getFkclient());
+                v.add(l.getIdadr_deb());
+                v.add(l.getIdadr_fin());
+                dft1.addRow(v);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Maj_Adr.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField acmpt;
     private javax.swing.JComboBox<String> adrdeb;
     private javax.swing.JComboBox<String> adrfin;
-    private javax.swing.JComboBox<String> cl;
+    private javax.swing.JComboBox<String> cli;
     private javax.swing.JFormattedTextField dt;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

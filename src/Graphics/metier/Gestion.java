@@ -53,14 +53,15 @@ public class Gestion extends javax.swing.JFrame {
         creaLoc.inject_adr();
         creaLoc.inject_taxi();
         creaLoc.inject_Client();
-        maj_Adr.inject_adr();
-        maj_Adr.inject_Client();
-        maj_Adr.inject_loc();
-        maj_Adr.inject_taxi();
         maj_Adr.setLocationDAO(locationDAO);
         maj_Adr.setAdresseDAO(adresseDAO);
         maj_Adr.setTaxiDAO(taxiDAO);
         maj_Adr.setClientDAO(clientDAO);
+        maj_Adr.inject_adr();
+        maj_Adr.inject_Client();
+        maj_Adr.inject_loc();
+        maj_Adr.inject_taxi();
+        
         
         
         
