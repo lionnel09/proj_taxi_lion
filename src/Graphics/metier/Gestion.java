@@ -61,7 +61,11 @@ public class Gestion extends javax.swing.JFrame {
         maj_Adr.inject_Client();
         maj_Adr.inject_loc();
         maj_Adr.inject_taxi();
-
+        trouve_loc.setLocationDAO(locationDAO);
+        trouve_loc.setTaxiDAO(taxiDAO);
+        trouve_loc.setAdresseDAO(adresseDAO);
+        trouve_loc.setClientDAO(clientDAO);
+        trouve_loc.inject_taxi();
     }
 
     /**
@@ -84,11 +88,13 @@ public class Gestion extends javax.swing.JFrame {
         creaCli = new Graphics.metier.CreaCli();
         creaLoc = new Graphics.metier.CreaLoc();
         maj_Adr = new Graphics.metier.Maj_Adr();
+        trouve_loc = new Graphics.metier.Trouve_loc();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -120,6 +126,7 @@ public class Gestion extends javax.swing.JFrame {
         getContentPane().add(creaCli, "cardCreaCli");
         getContentPane().add(creaLoc, "cardcrealoc");
         getContentPane().add(maj_Adr, "cardmaj_adr");
+        getContentPane().add(trouve_loc, "cardtrouveloc");
 
         jMenu1.setText("Taxi");
 
@@ -141,7 +148,7 @@ public class Gestion extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem4.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 15)); // NOI18N
+        jMenuItem4.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 12)); // NOI18N
         jMenuItem4.setText("Mise à Jour");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +156,15 @@ public class Gestion extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem4);
+
+        jMenuItem9.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 12)); // NOI18N
+        jMenuItem9.setText("Location");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem9);
 
         jMenuBar1.add(jMenu1);
 
@@ -220,7 +236,7 @@ public class Gestion extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         creaLoc.inject_adr();
         creaLoc.inject_taxi();
-        creaLoc.inject_Client();    
+        creaLoc.inject_Client();
         cardl.show(this.getContentPane(), "cardcrealoc");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
@@ -236,6 +252,11 @@ public class Gestion extends javax.swing.JFrame {
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         cardl.show(this.getContentPane(), "cardmaj_adr");
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        trouve_loc.inject_taxi();
+        cardl.show(this.getContentPane(), "cardtrouveloc");
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,11 +311,13 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private Graphics.metier.Maj maj;
     private Graphics.metier.Maj_Adr maj_Adr;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;
     private Graphics.metier.SupTaxi supTaxi;
+    private Graphics.metier.Trouve_loc trouve_loc;
     // End of variables declaration//GEN-END:variables
 }
