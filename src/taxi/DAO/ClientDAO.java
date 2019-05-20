@@ -35,7 +35,7 @@ public class ClientDAO extends DAO<Client> {
                     return new Client(idclient, nom, prenom, tel,idadr);
 
                 } else {
-                    throw new SQLException("Code inconnu");
+                    throw new SQLException("Code inconnu client");
                 }
 
             }

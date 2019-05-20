@@ -30,12 +30,31 @@ public class CreaCli extends javax.swing.JPanel {
 
     public CreaCli() {
         initComponents();
-        inject_adr();
+        
     }
 
+    /*public void inject_adr() {
+        try {
+            afl = adresseDAO.aff();
+            System.out.println(afl);
+            for (int i = 0; i < afl.size(); i++) {
+                dlm.addElement(afl.get(i).toString());
+
+            }
+            adr.setModel(dlm);
+
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+    }*/
     public void inject_adr() {
         try {
             afl = adresseDAO.aff();
+
+            if (adr != null) {
+                adr.removeAllItems();
+
+            }
             System.out.println(afl);
             for (int i = 0; i < afl.size(); i++) {
                 dlm.addElement(afl.get(i).toString());
@@ -139,26 +158,27 @@ public class CreaCli extends javax.swing.JPanel {
                 .addGap(68, 68, 68)
                 .addComponent(jLabel5)
                 .addGap(77, 77, 77)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
                         .addGap(28, 28, 28)
-                        .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(adr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(adr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel2)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel3)
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel4)))
-                .addGap(41, 41, 41)
-                .addComponent(jButton1)
-                .addContainerGap(178, Short.MAX_VALUE))
+                        .addGap(217, 217, 217)
+                        .addComponent(jButton1)))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -178,7 +198,8 @@ public class CreaCli extends javax.swing.JPanel {
             Client cl = new Client(0, n, pr, t, adr.getIdadr());
             clientDAO.create(cl);
             JOptionPane.showMessageDialog(this, "Client  créé", "Succès", JOptionPane.INFORMATION_MESSAGE);
-            
+            inject_adr();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
         }

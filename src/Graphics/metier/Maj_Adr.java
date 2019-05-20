@@ -57,7 +57,7 @@ public class Maj_Adr extends javax.swing.JPanel {
         dft1.addColumn("adresse de départ");
         dft1.addColumn("adresse de fin");
         locatab.setModel(dft1);
-        
+
     }
 
     public void setAdresseDAO(AdresseDAO adresseDAO) {
@@ -79,6 +79,9 @@ public class Maj_Adr extends javax.swing.JPanel {
     public void inject_Client() {
         try {
             cll = clientDAO.aff();
+            if (cli != null) {
+                cli.removeAllItems();
+            }
             System.out.println("maj" + cll);
             for (int i = 0; i < cll.size(); i++) {
                 dlmcl.addElement(cll.get(i).toString());
@@ -94,6 +97,9 @@ public class Maj_Adr extends javax.swing.JPanel {
     public void inject_taxi() {
         try {
             vtl = taxiDAO.aff();
+            if (taxi != null) {
+                taxi.removeAllItems();
+            }
             System.out.println("maj" + vtl);
             for (int i = 0; i < vtl.size(); i++) {
                 dlmtx.addElement(vtl.get(i).toString());
@@ -110,6 +116,10 @@ public class Maj_Adr extends javax.swing.JPanel {
         try {
             afl = adresseDAO.aff();
             afl1 = adresseDAO.aff();
+            if (adrdeb != null) {
+                adrdeb.removeAllItems();
+                adrfin.removeAllItems();
+            }
             System.out.println(afl);
             for (int i = 0; i < afl.size(); i++) {
                 dlmadrdeb.addElement(afl.get(i).toString());
@@ -126,8 +136,12 @@ public class Maj_Adr extends javax.swing.JPanel {
 
     public void inject_loc() {
         try {
+
             loc = locationDAO.aff();
-            System.out.println("maj" + loc);
+            if (locat != null) {
+                locat.removeAllItems();
+            }
+            
             for (int i = 0; i < loc.size(); i++) {
                 dlmloc.addElement(loc.get(i).toString());
             }
@@ -356,10 +370,11 @@ public class Maj_Adr extends javax.swing.JPanel {
                             .addComponent(locat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(maj, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(maj, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2)))
                 .addGap(69, 69, 69))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -384,7 +399,6 @@ public class Maj_Adr extends javax.swing.JPanel {
             inject_loc();
             JOptionPane.showMessageDialog(this, "Location mise à jour", "Succès", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -399,9 +413,9 @@ public class Maj_Adr extends javax.swing.JPanel {
             int moisd = Integer.parseInt(datedeb.substring(3, 5));
 
             int and = Integer.parseInt(datedeb.substring(6));
-            System.out.println("jour :" + jourd + "Mois:" + moisd + "année" + and);
+
             LocalDate date = LocalDate.of(and, moisd, jourd);
-            System.out.println(date);
+
             Double ktotal = Double.parseDouble(km.getText());
             Double acompte = Double.parseDouble(acmpt.getText());
             Double total = Double.parseDouble(tot.getText());
@@ -413,7 +427,9 @@ public class Maj_Adr extends javax.swing.JPanel {
             Adresse adressed = afl.get(fkadrdeb);
             int fkadrfin = adrfin.getSelectedIndex();
             Adresse adressef = afl1.get(fkadrfin);
-            Location l = new Location(0, date, ktotal, acompte, total, client.getIdclient(), voiture.getIdtaxi(), adressed.getIdadr(), adressef.getIdadr());
+            int idl = locat.getSelectedIndex();
+            Location id = loc.get(idl);
+            Location l = new Location(id.getIdloc(), date, ktotal, acompte, total, client.getIdclient(), voiture.getIdtaxi(), adressed.getIdadr(), adressef.getIdadr());
             System.out.println(l);
             locationDAO.update(l);
             inject_taxi();
@@ -429,10 +445,12 @@ public class Maj_Adr extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             List<Location> locl = locationDAO.aff();
+            System.out.println(locl);
             int nr = dft1.getRowCount();
             for (int i = nr - 1; i >= 0; i--) {
                 dft1.removeRow(i);
             }
+
             for (Location l : locl) {
                 Vector v = new Vector();
                 v.add(l.getIdloc());
@@ -440,14 +458,19 @@ public class Maj_Adr extends javax.swing.JPanel {
                 v.add(l.getKmtotal());
                 v.add(l.getAcompte());
                 v.add(l.getTotal());
-                v.add(l.getFktaxi());
-                v.add(l.getFkclient());
-                v.add(l.getIdadr_deb());
-                v.add(l.getIdadr_fin());
+                Voiture t = taxiDAO.read(l.getFktaxi());
+                v.add(t.getImma());
+                Client c = clientDAO.read(l.getFkclient());
+                v.add(c.getNom());
+                Adresse ad = adresseDAO.read(l.getIdadr_deb());
+                Adresse af = adresseDAO.read(l.getIdadr_fin());
+                v.add(ad.getNum() + ",Rue " + ad.getRue() + " " + ad.getLocalite());
+                v.add(af.getNum() + ",Rue" + af.getRue() + " " + af.getLocalite());
+                System.out.println(v);
                 dft1.addRow(v);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Maj_Adr.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            System.out.println("Exception " + e);
         }
 
 

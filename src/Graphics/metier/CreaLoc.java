@@ -37,7 +37,6 @@ public final class CreaLoc extends javax.swing.JPanel {
     DefaultComboBoxModel dlmtx = new DefaultComboBoxModel();
     DefaultComboBoxModel dlmadrdeb = new DefaultComboBoxModel();
     DefaultComboBoxModel dlmadrfin = new DefaultComboBoxModel();
-
     List<Adresse> afl;
     List<Adresse> afl1;
     List<Voiture> vtl;
@@ -45,9 +44,7 @@ public final class CreaLoc extends javax.swing.JPanel {
 
     public CreaLoc() {
         initComponents();
-        inject_taxi();
-        inject_adr();
-        inject_Client();
+
     }
 
     public void setAdresseDAO(AdresseDAO adresseDAO) {
@@ -69,7 +66,10 @@ public final class CreaLoc extends javax.swing.JPanel {
     public void inject_Client() {
         try {
             cll = clientDAO.aff();
-            System.out.println(cll);
+            if (cl != null) {
+                cl.removeAllItems();
+            }
+            
             for (int i = 0; i < cll.size(); i++) {
                 dlmcl.addElement(cll.get(i).toString());
 
@@ -84,7 +84,10 @@ public final class CreaLoc extends javax.swing.JPanel {
     public void inject_taxi() {
         try {
             vtl = taxiDAO.aff();
-            System.out.println(vtl);
+            if (taxi != null) {
+                taxi.removeAllItems();
+            }
+            
             for (int i = 0; i < vtl.size(); i++) {
                 dlmtx.addElement(vtl.get(i).toString());
 
@@ -99,7 +102,11 @@ public final class CreaLoc extends javax.swing.JPanel {
     public void inject_adr() {
         try {
             afl = adresseDAO.aff();
-            afl1=adresseDAO.aff();
+            afl1 = adresseDAO.aff();
+            if (adrdeb != null) {
+                adrdeb.removeAllItems();
+                adrfin.removeAllItems();
+            }
             System.out.println(afl);
             for (int i = 0; i < afl.size(); i++) {
                 dlmadrdeb.addElement(afl.get(i).toString());
@@ -285,14 +292,14 @@ public final class CreaLoc extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try {
-            
+
             String datedeb = dt.getText();
             int jourd = Integer.parseInt(datedeb.substring(0, 2));
             int moisd = Integer.parseInt(datedeb.substring(3, 5));
             int and = Integer.parseInt(datedeb.substring(6));
-            System.out.println("jour :" + jourd + "Mois:" + moisd + "année" + and);
+
             LocalDate date = LocalDate.of(and, moisd, jourd);
-            System.out.println(date);
+
             Double ktotal = Double.parseDouble(km.getText());
             Double acompte = Double.parseDouble(acmpt.getText());
             Double total = Double.parseDouble(tot.getText());
@@ -305,8 +312,11 @@ public final class CreaLoc extends javax.swing.JPanel {
             int fkadrfin = adrfin.getSelectedIndex();
             Adresse adressef = afl1.get(fkadrfin);
             Location l = new Location(0, date, ktotal, acompte, total, client.getIdclient(), voiture.getIdtaxi(), adressed.getIdadr(), adressef.getIdadr());
-            System.out.println(l);
+
             locationDAO.create(l);
+            inject_taxi();
+            inject_adr();
+            inject_Client();
             JOptionPane.showMessageDialog(this, "Location créé", "Succès", JOptionPane.INFORMATION_MESSAGE);
         } catch (HeadlessException | NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);

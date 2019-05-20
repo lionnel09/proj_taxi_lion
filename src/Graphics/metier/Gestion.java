@@ -33,8 +33,8 @@ public class Gestion extends javax.swing.JFrame {
         }
         TaxiDAO taxiDAO = new TaxiDAO();
         AdresseDAO adresseDAO = new AdresseDAO();
-        ClientDAO clientDAO=new ClientDAO();
-        LocationDAO locationDAO=new LocationDAO();
+        ClientDAO clientDAO = new ClientDAO();
+        LocationDAO locationDAO = new LocationDAO();
         locationDAO.setConnection(dbConnect);
         adresseDAO.setConnection(dbConnect);
         clientDAO.setConnection(dbConnect);
@@ -61,10 +61,7 @@ public class Gestion extends javax.swing.JFrame {
         maj_Adr.inject_Client();
         maj_Adr.inject_loc();
         maj_Adr.inject_taxi();
-        
-        
-        
-        
+
     }
 
     /**
@@ -115,7 +112,6 @@ public class Gestion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(1298, 619));
         getContentPane().setLayout(new java.awt.CardLayout());
         getContentPane().add(creaTaxi, "cardCrea");
         getContentPane().add(supTaxi, "cardSup");
@@ -222,11 +218,14 @@ public class Gestion extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        creaLoc.inject_adr();
+        creaLoc.inject_taxi();
+        creaLoc.inject_Client();    
         cardl.show(this.getContentPane(), "cardcrealoc");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-
+        creaCli.inject_adr();
         cardl.show(this.getContentPane(), "cardCreaCli");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
@@ -235,7 +234,7 @@ public class Gestion extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-       cardl.show(this.getContentPane(), "cardmaj_adr");
+        cardl.show(this.getContentPane(), "cardmaj_adr");
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**

@@ -39,7 +39,7 @@ public class TaxiDAO extends DAO<Voiture> {
                     return new Voiture(idtaxi, imma, carbu, p, desc);
 
                 } else {
-                    throw new SQLException("Code inconnu");
+                    throw new SQLException("Code inconnu pour la lecture taxi");
                 }
 
             }

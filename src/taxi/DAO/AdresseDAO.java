@@ -37,7 +37,7 @@ public class AdresseDAO extends DAO<Adresse> {
                     return new Adresse(idadr, cp, localite, rue, num);
 
                 } else {
-                    throw new SQLException("Code inconnu");
+                    throw new SQLException("Code inconnu Adressse");
                 }
             }
         }

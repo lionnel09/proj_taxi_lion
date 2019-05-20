@@ -115,7 +115,7 @@ public class LocationDAO extends DAO<Location> {
         String req = "update api_proj_location set dateloc=?,kmtotal=?,acompte=?,total=?,idclient=?,idtaxi=?,idadr_deb=?,idadr_fin=? where idloc= ?";
         try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
 
-            pstm.setInt(8, obj.getIdloc());
+            pstm.setInt(9, obj.getIdloc());
             pstm.setDate(1, java.sql.Date.valueOf(obj.getDateloc()));
             pstm.setDouble(2, obj.getKmtotal());
             pstm.setDouble(3, obj.getAcompte());
@@ -124,7 +124,7 @@ public class LocationDAO extends DAO<Location> {
             pstm.setInt(6, obj.getFktaxi());
             pstm.setInt(7, obj.getIdadr_deb());
             pstm.setInt(8, obj.getIdadr_fin());
-            System.out.println(req);
+            
             int n = pstm.executeUpdate();
             System.out.println(req);
             if (n == 0) {
