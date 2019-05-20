@@ -205,4 +205,33 @@ public class LocationDAO extends DAO<Location> {
         return l;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    public List<Location> affloctx(int id) throws SQLException {
+        List<Location> l = new ArrayList();
+        String req = "select * from api_proj_location where idtaxi=?";
+        try (PreparedStatement pstm = dbConnect.prepareStatement(req)) {
+            pstm.setInt(1, id);
+            try (ResultSet rs = pstm.executeQuery()) {
+                while (rs.next()) {
+                    int idloc = rs.getInt("IDLOC");
+                    LocalDate date = rs.getDate("DATELOC").toLocalDate();
+                    Double kmtotal = rs.getDouble("KMTOTAL");
+                    Double acompte = rs.getDouble("ACOMPTE");
+                    Double total = rs.getDouble("TOTAL");
+                    int idclient = rs.getInt("IDCLIENT");
+                    int idtaxi = rs.getInt("IDTAXI");
+                    int idadr_deb = rs.getInt("IDADR_DEB");
+                    int idadr_fin = rs.getInt("IDADR_FIN");
+                    l.add(new Location(idloc, date, kmtotal, acompte, total, idclient, idtaxi, idadr_deb, idadr_fin));
+                }
+            }
+        }
+        return l;
+    }
+
 }

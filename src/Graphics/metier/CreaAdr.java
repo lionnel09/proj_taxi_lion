@@ -49,30 +49,47 @@ public class CreaAdr extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1298, 619));
+        setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel1.setText("Code Postal :");
+        add(jLabel1);
+        jLabel1.setBounds(420, 178, 112, 18);
+        add(cp);
+        cp.setBounds(677, 178, 261, 26);
 
         jLabel2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel2.setText("Localité :");
+        add(jLabel2);
+        jLabel2.setBounds(420, 232, 78, 18);
 
         loca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 locaActionPerformed(evt);
             }
         });
+        add(loca);
+        loca.setBounds(677, 232, 261, 26);
 
         jLabel3.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel3.setText("Rue :");
+        add(jLabel3);
+        jLabel3.setBounds(420, 290, 45, 18);
 
         rue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rueActionPerformed(evt);
             }
         });
+        add(rue);
+        rue.setBounds(677, 290, 261, 26);
 
         jLabel4.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel4.setText("Numéro :");
+        add(jLabel4);
+        jLabel4.setBounds(420, 345, 81, 18);
+        add(Num);
+        Num.setBounds(677, 345, 261, 26);
 
         add.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 12)); // NOI18N
         add.setText("Ajouter");
@@ -81,62 +98,13 @@ public class CreaAdr extends javax.swing.JPanel {
                 addActionPerformed(evt);
             }
         });
+        add(add);
+        add.setBounds(420, 406, 112, 40);
 
         jLabel5.setFont(new java.awt.Font("Gill Sans Ultra Bold", 1, 24)); // NOI18N
         jLabel5.setText("Taxi Voitus");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(556, 556, 556))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(420, 420, 420)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(145, 145, 145)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(loca)
-                        .addComponent(rue)
-                        .addComponent(Num, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cp, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(360, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel5)
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel2)
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel3)
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(loca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(rue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(Num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
-                .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(173, Short.MAX_VALUE))
-        );
+        add(jLabel5);
+        jLabel5.setBounds(563, 60, 179, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void locaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locaActionPerformed

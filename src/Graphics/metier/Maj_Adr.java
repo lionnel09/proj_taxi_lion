@@ -100,7 +100,7 @@ public class Maj_Adr extends javax.swing.JPanel {
             if (taxi != null) {
                 taxi.removeAllItems();
             }
-            System.out.println("maj" + vtl);
+            
             for (int i = 0; i < vtl.size(); i++) {
                 dlmtx.addElement(vtl.get(i).toString());
 
