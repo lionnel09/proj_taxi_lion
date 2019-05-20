@@ -1,6 +1,5 @@
 package taxiDAO.Metier.Observer;
 
-import taxiDAO.Metier.Builder.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,7 +7,7 @@ import java.util.Set;
  *
  * @author Hp
  */
-public class Voiture  {
+public class Voiture {
 
     /**
      * identifiant unique du taxi
@@ -36,14 +35,6 @@ public class Voiture  {
      * constructeur par défaut
      */
     public Voiture() {
-    }
-
-    private Voiture(Taxibuilder tx) {
-        this.idtaxi = tx.idtaxi;
-        this.imma = tx.imma;
-        this.carbu = tx.carbu;
-        this.pkm = tx.pkm;
-        this.desc = tx.desc;
     }
 
     /**
@@ -170,15 +161,20 @@ public class Voiture  {
     public String toString() {
         return "Voiture{" + "idtaxi=" + idtaxi + ", imma=" + imma + ", carbu=" + carbu + ", pkm=" + pkm + ", desc=" + desc + '}';
     }
-    public Set<Location> getMesLocations(){
+
+    public Set<Location> getMesLocations() {
         return mesLocations;
     }
-    public int hashCode(){
-        int hash=5;
-        hash=37*hash+this.idtaxi;
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + this.idtaxi;
         return hash;
     }
-     public boolean equals(Object obj) {
+
+    @Override
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -193,57 +189,6 @@ public class Voiture  {
             return false;
         }
         return true;
-    }
-
-    
-
-    public static class Taxibuilder {
-
-        /**
-         * identifiant unique du taxi
-         */
-        protected int idtaxi;
-        /**
-         * immatriculation
-         */
-        protected String imma;
-        /**
-         * capacité du réservoir
-         */
-        protected String carbu;
-        /**
-         * prix au km
-         */
-        protected Double pkm;
-        /**
-         * Description
-         */
-        protected String desc;
-        
-        public Taxibuilder setIdtaxi(int idtaxi){
-            this.idtaxi=idtaxi;
-            return this;
-        }
-        public Taxibuilder setImma(String imma){
-            this.imma=imma;
-            return this;
-        }
-        public Taxibuilder setCarbu(String carbu){
-            this.carbu=carbu;
-            return this;
-        }
-        public Taxibuilder setPkm(Double pkm){
-            this.pkm=pkm;
-            return this;
-        }
-        public Taxibuilder setDesc(String desc){
-            this.desc=desc;
-            return this;
-        }
-        public Voiture build() throws Exception{
-            if(idtaxi<=0 || imma==null || desc==null || pkm<=0 || carbu==null) throw new  Exception("informations de construction incomplètes");
-            return new Voiture(this);
-        }
     }
 
 }

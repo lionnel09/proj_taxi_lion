@@ -5,7 +5,6 @@
  */
 package taxiDAO.Metier.Observer;
 
-import taxiDAO.Metier.Builder.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +12,7 @@ import java.util.Set;
  *
  * @author Hp
  */
-public class Client {
+public class Client extends Observer {
 
     /**
      * identifiant unique du client
@@ -44,7 +43,6 @@ public class Client {
 
     public Client() {
     }
-
     /**
      * constructeur paramétré
      *
@@ -61,6 +59,11 @@ public class Client {
         this.prenom = prenom;
         this.tel = tel;
         this.idadr = idadr;
+    }
+
+    @Override
+    public void update(String msg) {
+        System.out.println(nom + " " + prenom + " a reçu " + msg);
     }
 
     /**

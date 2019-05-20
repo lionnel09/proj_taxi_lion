@@ -106,7 +106,7 @@ public class CreaCli extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel2.setText("Prénom :");
         add(jLabel2);
-        jLabel2.setBounds(251, 235, 80, 18);
+        jLabel2.setBounds(250, 240, 80, 18);
 
         jLabel3.setFont(new java.awt.Font("Gill Sans Ultra Bold", 0, 14)); // NOI18N
         jLabel3.setText("Téléphone :");

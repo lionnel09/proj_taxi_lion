@@ -66,6 +66,13 @@ public class Gestion extends javax.swing.JFrame {
         trouve_loc.setAdresseDAO(adresseDAO);
         trouve_loc.setClientDAO(clientDAO);
         trouve_loc.inject_taxi();
+        maj_cli.setAdresseDAO(adresseDAO);
+        maj_cli.setClientDAO(clientDAO);
+        maj_cli.inject_Client();
+        maj_cli.inject_adr();
+        gestion_adr.setAdresseDAO(adresseDAO);
+        gestion_adr.inject_adr();
+
     }
 
     /**
@@ -87,8 +94,10 @@ public class Gestion extends javax.swing.JFrame {
         creaAdr = new Graphics.metier.CreaAdr();
         creaCli = new Graphics.metier.CreaCli();
         creaLoc = new Graphics.metier.CreaLoc();
-        maj_Adr = new Graphics.metier.Maj_Adr();
         trouve_loc = new Graphics.metier.Trouve_loc();
+        maj_Adr = new Graphics.metier.Maj_Adr();
+        maj_cli = new Graphics.metier.Maj_cli();
+        gestion_adr = new Graphics.metier.Gestion_adr();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -100,8 +109,10 @@ public class Gestion extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -125,8 +136,10 @@ public class Gestion extends javax.swing.JFrame {
         getContentPane().add(creaAdr, "cardCreaAdr");
         getContentPane().add(creaCli, "cardCreaCli");
         getContentPane().add(creaLoc, "cardcrealoc");
-        getContentPane().add(maj_Adr, "cardmaj_adr");
         getContentPane().add(trouve_loc, "cardtrouveloc");
+        getContentPane().add(maj_Adr, "cardmaj_adr");
+        getContentPane().add(maj_cli, "cardmajcli");
+        getContentPane().add(gestion_adr, "cardgest");
 
         jMenu1.setText("Taxi");
 
@@ -198,6 +211,14 @@ public class Gestion extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem7);
 
+        jMenuItem11.setText("Gestion Adresse");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem11);
+
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Client");
@@ -209,6 +230,14 @@ public class Gestion extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem6);
+
+        jMenuItem10.setText("Gestion Client");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem10);
 
         jMenuBar1.add(jMenu4);
 
@@ -258,6 +287,17 @@ public class Gestion extends javax.swing.JFrame {
         cardl.show(this.getContentPane(), "cardtrouveloc");
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        maj_cli.inject_Client();
+        maj_cli.inject_adr();
+        cardl.show(this.getContentPane(), "cardmajcli");
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        gestion_adr.inject_adr();
+        cardl.show(this.getContentPane(), "cardgest");
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -298,12 +338,15 @@ public class Gestion extends javax.swing.JFrame {
     private Graphics.metier.CreaCli creaCli;
     private Graphics.metier.CreaLoc creaLoc;
     private Graphics.metier.CreaTaxi creaTaxi;
+    private Graphics.metier.Gestion_adr gestion_adr;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -314,6 +357,7 @@ public class Gestion extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private Graphics.metier.Maj maj;
     private Graphics.metier.Maj_Adr maj_Adr;
+    private Graphics.metier.Maj_cli maj_cli;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;

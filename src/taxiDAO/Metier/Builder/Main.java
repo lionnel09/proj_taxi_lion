@@ -5,8 +5,6 @@
  */
 package taxiDAO.Metier.Builder;
 
-import java.sql.SQLException;
-
 /**
  *
  * @author lionn

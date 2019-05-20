@@ -23,7 +23,9 @@ public abstract class Subject {
    }
    public void notifyObservers(){
        String msg=getNotification();
-       for(Observer o : myObservers) o.update(msg);
+       myObservers.forEach((o) -> {
+           o.update(msg);
+       });
    }
    
    public abstract String getNotification();
