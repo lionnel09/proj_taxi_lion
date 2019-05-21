@@ -8,6 +8,7 @@ package Graphics.metier;
 import classe.metier.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -80,14 +81,18 @@ public class Maj_Adr extends javax.swing.JPanel {
             if (cli != null) {
                 cli.removeAllItems();
             }
-            System.out.println("maj" + cll);
-            for (int i = 0; i < cll.size(); i++) {
+            Iterator<Client> itc = cll.iterator();
+            while (itc.hasNext()) {
+                Client c = itc.next();
+                dlmcl.addElement(c.toString());
+            }
+            /*for (int i = 0; i < cll.size(); i++) {
                 dlmcl.addElement(cll.get(i).toString());
 
-            }
+            }*/
             cli.setModel(dlmcl);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Exception" + e);
         }
     }
@@ -98,14 +103,18 @@ public class Maj_Adr extends javax.swing.JPanel {
             if (taxi != null) {
                 taxi.removeAllItems();
             }
-            
-            for (int i = 0; i < vtl.size(); i++) {
+            Iterator<Voiture> itt = vtl.iterator();
+            while (itt.hasNext()) {
+                Voiture v = itt.next();
+                dlmtx.addElement(v.toString());
+            }
+            /*for (int i = 0; i < vtl.size(); i++) {
                 dlmtx.addElement(vtl.get(i).toString());
 
-            }
+            }*/
             taxi.setModel(dlmtx);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Exception" + e);
         }
     }
@@ -118,16 +127,25 @@ public class Maj_Adr extends javax.swing.JPanel {
                 adrdeb.removeAllItems();
                 adrfin.removeAllItems();
             }
-            System.out.println(afl);
-            for (int i = 0; i < afl.size(); i++) {
+            Iterator<Adresse> ita = afl.iterator();
+            Iterator<Adresse> ita1 = afl1.iterator();
+
+            /*for (int i = 0; i < afl.size(); i++) {
                 dlmadrdeb.addElement(afl.get(i).toString());
                 dlmadrfin.addElement(afl1.get(i).toString());
+
+            }*/
+            while (ita.hasNext()) {
+                Adresse a = ita.next();
+                Adresse a1 = ita1.next();
+                dlmadrdeb.addElement(a.toString());
+                dlmadrfin.addElement(a1.toString());
 
             }
             adrdeb.setModel(dlmadrdeb);
             adrfin.setModel(dlmadrfin);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Exception" + e);
         }
     }
@@ -139,13 +157,17 @@ public class Maj_Adr extends javax.swing.JPanel {
             if (locat != null) {
                 locat.removeAllItems();
             }
-            
-            for (int i = 0; i < loc.size(); i++) {
-                dlmloc.addElement(loc.get(i).toString());
+            Iterator<Location> itl = loc.iterator();
+            while (itl.hasNext()) {
+                Location l = itl.next();
+                dlmloc.addElement(l.toString());
             }
+            /*for (int i = 0; i < loc.size(); i++) {
+                dlmloc.addElement(loc.get(i).toString());
+            }*/
             locat.setModel(dlmloc);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Exception" + e);
         }
     }

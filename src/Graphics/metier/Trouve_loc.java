@@ -10,6 +10,7 @@ import classe.metier.Client;
 import classe.metier.Location;
 import classe.metier.Voiture;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -74,11 +75,15 @@ public class Trouve_loc extends javax.swing.JPanel {
             if (taxi != null) {
                 taxi.removeAllItems();
             }
-
-            for (int i = 0; i < vtl.size(); i++) {
+            Iterator<Voiture> itt = vtl.iterator();
+            while (itt.hasNext()) {
+                Voiture v = itt.next();
+                dlmtx.addElement(v.toString());
+            }
+            /*for (int i = 0; i < vtl.size(); i++) {
                 dlmtx.addElement(vtl.get(i).toString());
 
-            }
+            }*/
             taxi.setModel(dlmtx);
 
         } catch (SQLException e) {

@@ -12,6 +12,7 @@ import classe.metier.Voiture;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -69,14 +70,19 @@ public final class CreaLoc extends javax.swing.JPanel {
             if (cl != null) {
                 cl.removeAllItems();
             }
-            
-            for (int i = 0; i < cll.size(); i++) {
+
+            Iterator<Client> itc = cll.iterator();
+            while (itc.hasNext()) {
+                Client c = itc.next();
+                dlmcl.addElement(c.toString());
+            }
+            /*for (int i = 0; i < cll.size(); i++) {
                 dlmcl.addElement(cll.get(i).toString());
 
-            }
+            }*/
             cl.setModel(dlmcl);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Exception" + e);
         }
     }
@@ -87,14 +93,18 @@ public final class CreaLoc extends javax.swing.JPanel {
             if (taxi != null) {
                 taxi.removeAllItems();
             }
-            
-            for (int i = 0; i < vtl.size(); i++) {
+            Iterator<Voiture> itt = vtl.iterator();
+            while (itt.hasNext()) {
+                Voiture v = itt.next();
+                dlmtx.addElement(v.toString());
+            }
+            /*for (int i = 0; i < vtl.size(); i++) {
                 dlmtx.addElement(vtl.get(i).toString());
 
-            }
+            }*/
             taxi.setModel(dlmtx);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Exception" + e);
         }
     }
@@ -107,16 +117,26 @@ public final class CreaLoc extends javax.swing.JPanel {
                 adrdeb.removeAllItems();
                 adrfin.removeAllItems();
             }
-            System.out.println(afl);
-            for (int i = 0; i < afl.size(); i++) {
+
+            Iterator<Adresse> ita = afl.iterator();
+            Iterator<Adresse> ita1 = afl1.iterator();
+
+            /*for (int i = 0; i < afl.size(); i++) {
                 dlmadrdeb.addElement(afl.get(i).toString());
                 dlmadrfin.addElement(afl1.get(i).toString());
+
+            }*/
+            while (ita.hasNext()) {
+                Adresse a = ita.next();
+                Adresse a1 = ita1.next();
+                dlmadrdeb.addElement(a.toString());
+                dlmadrfin.addElement(a1.toString());
 
             }
             adrdeb.setModel(dlmadrdeb);
             adrfin.setModel(dlmadrfin);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Exception" + e);
         }
     }

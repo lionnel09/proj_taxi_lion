@@ -8,6 +8,7 @@ package Graphics.metier;
 import classe.metier.Adresse;
 import classe.metier.Client;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -58,10 +59,15 @@ public class Maj_cli extends javax.swing.JPanel {
                 cli.removeAllItems();
             }
             System.out.println("maj" + cll);
-            for (int i = 0; i < cll.size(); i++) {
+            Iterator<Client> itc = cll.iterator();
+            while (itc.hasNext()) {
+                Client c = itc.next();
+                dlmcl.addElement(c.toString());
+            }
+            /*for (int i = 0; i < cll.size(); i++) {
                 dlmcl.addElement(cll.get(i).toString());
 
-            }
+            }*/
             cli.setModel(dlmcl);
 
         } catch (SQLException e) {
@@ -75,13 +81,17 @@ public class Maj_cli extends javax.swing.JPanel {
 
             if (adr != null) {
                 adr.removeAllItems();
-
             }
+            Iterator<Adresse> ita = afl.iterator();
             System.out.println(afl);
-            for (int i = 0; i < afl.size(); i++) {
+            while (ita.hasNext()) {
+                Adresse a = ita.next();
+                dlmadr.addElement(a.getNum() + "," + a.getRue() + " " + a.getLocalite());
+            }
+            /*for (int i = 0; i < afl.size(); i++) {
                 dlmadr.addElement(afl.get(i).getNum() + "," + afl.get(i).getRue() + " " + afl.get(i).getLocalite());
 
-            }
+            }*/
             adr.setModel(dlmadr);
 
         } catch (Exception e) {
@@ -296,8 +306,7 @@ public class Maj_cli extends javax.swing.JPanel {
                 v.add(c.getNom());
                 v.add(c.getPrenom());
                 v.add(c.getTel());
-                
-                Adresse a=adresseDAO.read(c.getIdadr());
+                Adresse a = adresseDAO.read(c.getIdadr());
                 v.add(a.getNum() + ",Rue " + a.getRue() + " " + a.getLocalite());
                 dft1.addRow(v);
             }

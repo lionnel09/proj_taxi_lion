@@ -5,7 +5,6 @@
  */
 package taxi.DAO;
 
-import classe.metier.Voiture;
 import java.sql.Connection;
 import java.sql.SQLException;
 
