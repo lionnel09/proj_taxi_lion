@@ -131,7 +131,7 @@ public class CreaTaxi extends javax.swing.JPanel {
                     .addComponent(jLabel8))
                 .addGap(70, 70, 70)
                 .addComponent(create, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -1,9 +1,6 @@
 package Graphics.metier;
 
-import classe.metier.Adresse;
 import connect.DBConnection;
-import taxi_proj.Taxi_proj;
-import java.*;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import javax.swing.JOptionPane;

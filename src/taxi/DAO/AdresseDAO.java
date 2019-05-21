@@ -98,9 +98,9 @@ public class AdresseDAO extends DAO<Adresse> {
 
             pstm.setInt(1, obj.getCp());
             pstm.setString(2, obj.getLocalite());
-            pstm.setString(2, obj.getRue());
-            pstm.setString(3, obj.getNum());
-            pstm.setInt(4, obj.getIdadr());
+            pstm.setString(3, obj.getRue());
+            pstm.setString(4, obj.getNum());
+            pstm.setInt(5, obj.getIdadr());
 
             System.out.println(req);
             int n = pstm.executeUpdate();

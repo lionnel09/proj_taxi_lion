@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import taxi.DAO.AdresseDAO;
 import taxi.DAO.ClientDAO;
@@ -58,9 +59,11 @@ public class Trouve_loc extends javax.swing.JPanel {
     public void setTaxiDAO(TaxiDAO taxiDAO) {
         this.taxiDAO = taxiDAO;
     }
+
     public void setAdresseDAO(AdresseDAO adresseDAO) {
         this.adresseDAO = adresseDAO;
     }
+
     public void setClientDAO(ClientDAO clientDAO) {
         this.clientDAO = clientDAO;
     }
@@ -71,14 +74,14 @@ public class Trouve_loc extends javax.swing.JPanel {
             if (taxi != null) {
                 taxi.removeAllItems();
             }
-            
+
             for (int i = 0; i < vtl.size(); i++) {
                 dlmtx.addElement(vtl.get(i).toString());
 
             }
             taxi.setModel(dlmtx);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Exception" + e);
         }
     }
@@ -101,14 +104,16 @@ public class Trouve_loc extends javax.swing.JPanel {
 
         setLayout(null);
 
+        jLabel1.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 14)); // NOI18N
         jLabel1.setText("Taxi :");
         add(jLabel1);
-        jLabel1.setBounds(209, 188, 41, 20);
+        jLabel1.setBounds(209, 188, 35, 18);
 
         taxi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(taxi);
         taxi.setBounds(300, 180, 506, 26);
 
+        jButton1.setFont(new java.awt.Font("Gill Sans Ultra Bold Condensed", 0, 14)); // NOI18N
         jButton1.setText("Rechercher");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +121,7 @@ public class Trouve_loc extends javax.swing.JPanel {
             }
         });
         add(jButton1);
-        jButton1.setBounds(922, 184, 125, 29);
+        jButton1.setBounds(922, 184, 125, 27);
 
         locatab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,7 +148,7 @@ public class Trouve_loc extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         try {
-            int id=taxi.getSelectedIndex();
+            int id = taxi.getSelectedIndex();
             Voiture t = vtl.get(id);
             System.out.println(t.getIdtaxi());
             List<Location> locl = locationDAO.affloctx(t.getIdtaxi());

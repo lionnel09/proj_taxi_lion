@@ -83,7 +83,7 @@ public class ClientDAO extends DAO<Client> {
             pstm.setString(3, obj.getTel());
             System.out.println(req);
             int n = pstm.executeUpdate();
-            System.out.println(req);
+            System.out.println(pstm);
             if (n == 0) {
                 throw new SQLException("aucune ligne client mise à jour");
             }
