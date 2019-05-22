@@ -431,9 +431,7 @@ public class Maj_Adr extends javax.swing.JPanel {
             String datedeb = dt.getText();
             int jourd = Integer.parseInt(datedeb.substring(0, 2));
             int moisd = Integer.parseInt(datedeb.substring(3, 5));
-
             int and = Integer.parseInt(datedeb.substring(6));
-
             LocalDate date = LocalDate.of(and, moisd, jourd);
 
             Double ktotal = Double.parseDouble(km.getText());

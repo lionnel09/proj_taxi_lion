@@ -124,7 +124,6 @@ public final class CreaLoc extends javax.swing.JPanel {
             /*for (int i = 0; i < afl.size(); i++) {
                 dlmadrdeb.addElement(afl.get(i).toString());
                 dlmadrfin.addElement(afl1.get(i).toString());
-
             }*/
             while (ita.hasNext()) {
                 Adresse a = ita.next();
