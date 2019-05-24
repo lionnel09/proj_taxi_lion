@@ -76,7 +76,7 @@ public class Location extends Subject {
         this.fktaxi = fktaxi;
         this.idadr_deb = idadr_deb;
         this.idadr_fin = idadr_fin;
-
+        myObservers.add(fkclient);
     }
 
     /**

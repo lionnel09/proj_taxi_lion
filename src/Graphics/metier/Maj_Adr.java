@@ -417,7 +417,7 @@ public class Maj_Adr extends javax.swing.JPanel {
             inject_adr();
             inject_Client();
             inject_loc();
-            JOptionPane.showMessageDialog(this, "Location mise à jour", "Succès", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Location Supprimée", "Succès", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
         }
@@ -433,7 +433,6 @@ public class Maj_Adr extends javax.swing.JPanel {
             int moisd = Integer.parseInt(datedeb.substring(3, 5));
             int and = Integer.parseInt(datedeb.substring(6));
             LocalDate date = LocalDate.of(and, moisd, jourd);
-
             Double ktotal = Double.parseDouble(km.getText());
             Double acompte = Double.parseDouble(acmpt.getText());
             Double total = Double.parseDouble(tot.getText());

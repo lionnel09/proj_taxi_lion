@@ -283,7 +283,7 @@ public class Maj_cli extends javax.swing.JPanel {
             Adresse a = afl.get(ida);
             System.out.println();
             clientDAO.update(new Client(l.getIdclient(), n, p, t, a.getIdadr()));
-            JOptionPane.showMessageDialog(this, "Client à jour", "Succès", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Client mis à jour", "Succès", JOptionPane.INFORMATION_MESSAGE);
             inject_adr();
             inject_Client();
         } catch (SQLException e) {

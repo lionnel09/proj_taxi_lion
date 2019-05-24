@@ -225,7 +225,7 @@ public class Maj extends javax.swing.JPanel {
             String Description = desc.getText();
             Voiture vt = new Voiture(idtaxi, immatriculation, carburant, prix, Description);
             taxiDAO.update(vt);
-            JOptionPane.showMessageDialog(this, "Taxi Modiié", "Succès", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Taxi Modifié", "Succès", JOptionPane.INFORMATION_MESSAGE);
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "ERREUR", JOptionPane.ERROR_MESSAGE);
