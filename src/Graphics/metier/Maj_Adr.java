@@ -88,7 +88,6 @@ public class Maj_Adr extends javax.swing.JPanel {
             }
             /*for (int i = 0; i < cll.size(); i++) {
                 dlmcl.addElement(cll.get(i).toString());
-
             }*/
             cli.setModel(dlmcl);
 

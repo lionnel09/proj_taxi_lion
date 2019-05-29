@@ -276,6 +276,10 @@ public class Gestion extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        maj_Adr.inject_adr();
+        maj_Adr.inject_Client();
+        maj_Adr.inject_loc();
+        maj_Adr.inject_taxi();
         cardl.show(this.getContentPane(), "cardmaj_adr");
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
