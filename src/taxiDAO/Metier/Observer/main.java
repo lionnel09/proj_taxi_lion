@@ -20,8 +20,7 @@ public class main {
         Adresse adrarrive=new Adresse(4,7000,"mons","rue dutrieux","7");
         Client cl=new Client(1,"lionnel","boglis","04652658",adrdepart);
         adrdepart.getClient().add(cl);
-        Location loc=new Location(1,LocalDate.of(2019, Month.DECEMBER, 20),Double.parseDouble("23.5"),Double.parseDouble("40"),Double.parseDouble("314"),cl,vt,adrdepart,adrarrive);
-        
+        Location loc=new Location(1,LocalDate.of(2019, Month.DECEMBER, 20),Double.parseDouble("23.5"),Double.parseDouble("40"),Double.parseDouble("314"),cl,vt,adrdepart,adrarrive);     
         vt.getMesLocations().add(loc);
         adrdepart.getLocdeb().add(loc);
         adrarrive.getLocfin().add(loc);

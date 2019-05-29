@@ -17,7 +17,7 @@ public class Main {
             Voiture vt = new Voiture.Taxibuilder().
                     setIdtaxi(1).
                     setImma("fk22").
-                    setCarbu("Essence").
+                    setCarbu("diesel").
                     setPkm(12.5).
                     setDesc("Belle beauté").
                     build();

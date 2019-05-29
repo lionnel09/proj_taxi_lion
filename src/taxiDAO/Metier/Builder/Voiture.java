@@ -238,7 +238,7 @@ public class Voiture {
             return this;
         }
         public Voiture build() throws Exception{
-            if(idtaxi<=0 || imma==null || desc==null || pkm<=0 || carbu==null) throw new  Exception("informations de construction incomplètes");
+            if(idtaxi<=0 || imma==null || desc==null || pkm<=0 || (carbu==null || !"diesel".equalsIgnoreCase(carbu) && !"essence".equalsIgnoreCase(carbu))) throw new  Exception("informations de construction incomplètes");
             return new Voiture(this);
         }
     }
